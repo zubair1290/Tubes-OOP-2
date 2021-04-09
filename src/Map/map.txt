@@ -1,0 +1,30 @@
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     Keterangan:
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     W/w: Water engimon
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     I/i : Ice engimon
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     F/f: Fire engimon
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     G/g: Ground engimon
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     E/e: Electric engimon
+x - - - - - - - - - - - - - - - - - o o o o o o o o o o o o o o o o o o o o o x     L/l: Fire/Electric engimon
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x     S/s: Water/Ice engimon
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x     N.n: Water/Ground engimon
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x     P: Player
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x     -: Grassland
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x     o: Sea
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x

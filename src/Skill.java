@@ -1,0 +1,7 @@
+/**
+ * Skill
+ */
+public class Skill {
+
+    
+}
