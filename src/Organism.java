@@ -37,28 +37,31 @@ public abstract class Organism {
         return this.bound;
     }
 
-    public void MoveUp() throws CoordinateMapOutOFBoundException {
-        try {
-            setCo(co.getX(), co.getY()-1); 
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(bound);
-        }
-    }
-    public void MoveDown() throws CoordinateMapOutOFBoundException {
+    // public abstract void MoveUp() throws CoordinateMapOutOFBoundException;
+    // public abstract void MoveUp() throws CoordinateMapOutOFBoundException, CoordinateEngimonIsNotInAreaException;
+    
+    protected void MoveUp() throws CoordinateMapOutOFBoundException {
         try {
             setCo(co.getX(), co.getY()+1);
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(bound);
         }
     }
-    public void MoveLeft() throws CoordinateMapOutOFBoundException { 
+    protected void MoveDown() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(co.getX(), co.getY()+1);
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(bound);
+        }
+    }
+    protected void MoveLeft() throws CoordinateMapOutOFBoundException { 
         try {
             setCo(co.getX()-1, co.getY());
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(bound);
         }
     }
-    public void MoveRight() throws CoordinateMapOutOFBoundException { 
+    protected void MoveRight() throws CoordinateMapOutOFBoundException { 
         try {
             setCo(co.getX()+1, co.getY()); 
         } catch (CoordinateMapOutOFBoundException e) {

@@ -32,7 +32,7 @@ public class Main {
         map.Show();
         map.updatePlayerMap(plyr);
         map.updateEngimonMap(ePlayer);
-        ThreadEngimonWild myEngimonWildThread = new ThreadEngimonWild(mapBound, eWilds);
+        ThreadEngimonWild myEngimonWildThread = new ThreadEngimonWild(map, mapBound, eWilds);
         LocalTime time;
         myEngimonWildThread.start();
         do {

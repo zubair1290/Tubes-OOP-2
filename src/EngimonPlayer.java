@@ -68,4 +68,33 @@ public class EngimonPlayer extends Engimon {
         }
     }
 
+    public void MoveUp() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(this.getX(), this.getY()-1);
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(this.getBound());
+        }
+    }
+    public void MoveDown() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(this.getX(), this.getY()+1);
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(this.getBound());
+        }
+    }
+    public void MoveLeft() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(this.getX()-1, this.getY());
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(this.getBound());
+        }
+    }
+    public void MoveRight() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(this.getX()+1, this.getY());
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(this.getBound());
+        }
+    }
+
 };

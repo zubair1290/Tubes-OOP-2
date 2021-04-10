@@ -1,5 +1,7 @@
 import java.util.Random;
 
+// import javax.crypto.interfaces.PBEKey;
+
 // import java.util.Random;
 
 public class EngimonWild extends Engimon {
@@ -46,6 +48,139 @@ public class EngimonWild extends Engimon {
                 
             }
         } while (true);
+    }
+
+    public void MoveUp(Map map) throws CoordinateMapOutOFBoundException, CoordinateEngimonIsNotInAreaException {
+        switch (element) {
+            case Water:
+            case Ice:
+            case Water_Ice:
+                if (map.get(this.getX(), this.getY()) == 'o') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveUp();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Fire:
+            case Fire_Electric:
+            case Ground:
+            case Electric: 
+                if (map.get(this.getX(), this.getY()) == '-') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveUp();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Water_Ground:
+                break;
+        }
+    }
+    public void MoveDown(Map map) throws CoordinateMapOutOFBoundException, CoordinateEngimonIsNotInAreaException {
+        switch (element) {
+            case Water:
+            case Ice:
+            case Water_Ice:
+                if (map.get(this.getX(), this.getY()) == 'o') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveDown();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Fire:
+            case Fire_Electric:
+            case Ground:
+            case Electric: 
+                if (map.get(this.getX(), this.getY()) == '-') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveDown();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Water_Ground:
+                break;
+        }
+    }
+    public void MoveLeft(Map map) throws CoordinateMapOutOFBoundException, CoordinateEngimonIsNotInAreaException {
+        switch (element) {
+            case Water:
+            case Ice:
+            case Water_Ice:
+                if (map.get(this.getX(), this.getY()) == 'o') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveLeft();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Fire:
+            case Fire_Electric:
+            case Ground:
+            case Electric: 
+                if (map.get(this.getX(), this.getY()) == '-') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveLeft();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Water_Ground:
+                break;
+        }
+    }
+    public void MoveRight(Map map) throws CoordinateMapOutOFBoundException, CoordinateEngimonIsNotInAreaException {
+        switch (element) {
+            case Water:
+            case Ice:
+            case Water_Ice:
+                if (map.get(this.getX(), this.getY()) == 'o') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveRight();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Fire:
+            case Fire_Electric:
+            case Ground:
+            case Electric: 
+                if (map.get(this.getX(), this.getY()) == '-') {
+                    throw new CoordinateEngimonIsNotInAreaException();
+                } else {
+                    try {
+                        super.MoveRight();
+                    } catch (CoordinateMapOutOFBoundException e) {
+                        throw new CoordinateMapOutOFBoundException(this.getBound());
+                    }
+                }
+                break;
+            case Water_Ground:
+                break;
+        }
     }
 
     
