@@ -1,12 +1,14 @@
 
 public abstract class Organism {
     private Coordinate co;
+    private Coordinate bound;
 
-    public Organism() {
-        this(0, 0);
+    public Organism(Coordinate bound) {
+        this(bound, 0, 0);
     }
 
-    public Organism(int x, int y) {
+    public Organism(Coordinate bound, int x, int y) {
+        this.bound = bound;
         co = new Coordinate(x, y);
     }
 
@@ -18,14 +20,50 @@ public abstract class Organism {
         return co.getY();
     }
 
-    void setCo(int x, int y) {
-        // exception 
-        co.setCo(x, y);
+    void setCo(int x, int y) throws CoordinateMapOutOFBoundException {
+        if (isInMap(x, y)) {
+            co.setCo(x, y);
+        } else {
+            throw new CoordinateMapOutOFBoundException(co);
+        }
+            
     }
 
-    public void MoveUp()    { setCo(co.getX()   , co.getY()-1); }
-    public void MoveDown()  { setCo(co.getX()   , co.getY()+1); }
-    public void MoveLeft()  { setCo(co.getX()-1 , co.getY()  ); }
-    public void MoveRight() { setCo(co.getX()+1 , co.getY()  ); }
+    public boolean isInMap(int x, int y) {
+        return (x >= 1 && y >= 1) && (x <= this.bound.getX() && y <= this.bound.getY());
+    }
+
+    public Coordinate getBound() {
+        return this.bound;
+    }
+
+    public void MoveUp() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(co.getX(), co.getY()-1); 
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(bound);
+        }
+    }
+    public void MoveDown() throws CoordinateMapOutOFBoundException {
+        try {
+            setCo(co.getX(), co.getY()+1);
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(bound);
+        }
+    }
+    public void MoveLeft() throws CoordinateMapOutOFBoundException { 
+        try {
+            setCo(co.getX()-1, co.getY());
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(bound);
+        }
+    }
+    public void MoveRight() throws CoordinateMapOutOFBoundException { 
+        try {
+            setCo(co.getX()+1, co.getY()); 
+        } catch (CoordinateMapOutOFBoundException e) {
+            throw new CoordinateMapOutOFBoundException(bound);
+        }
+    }
 
 }

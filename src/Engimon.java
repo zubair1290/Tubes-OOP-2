@@ -1,25 +1,13 @@
 
 public abstract class Engimon extends Organism{
-    private String species;
-    private boolean active;
-    private Element element;
-    private int level;
-    private Skill skill;
+    protected String species;
+    protected boolean active;
+    protected Element element;
+    protected int level;
+    protected Skill skill;
 
-    public Engimon(boolean active) {
-        this("", active, Element.Ground, new Skill());
-    }
-
-    public Engimon() {
-        this(false);
-    }
-
-    public Engimon(String species, boolean active, Element element, Skill skill) {
-        this.species = species;
-        this.active = active;
-        this.element = element;
-        this.skill = skill;
-        this.level = 0;
+    public Engimon(Coordinate bound) {
+        super(bound);
     }
 
     public boolean getActive() {

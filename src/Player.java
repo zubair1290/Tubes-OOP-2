@@ -4,18 +4,20 @@ public class Player extends Organism {
     private Inventory<EngimonPlayer> engimons;
     private EngimonPlayer engimonPlayerActive;
 
-    public Player(int x, int y) {
-        super(x, y);
+    public Player(Coordinate Bound, int x, int y) {
+        super(Bound, x, y);
+    }
+    
+    public void changeEngimonActive(EngimonPlayer ePlayer, int idx) {
+        ePlayer = this.setActiveEngimon(idx);
     }
 
-    public EngimonPlayer setActiveEngimon(int idx) {
-        return null;  
+    private EngimonPlayer setActiveEngimon(int idx) {
+        return null;
         // return engimons.setActive(idx);
     }
 
     public void viewAllEngimon() {
         // engimons.viewAll();
     }
-
-
 }

@@ -1,14 +1,21 @@
 import java.util.Scanner;
+
+
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Main {
     
     public static void main(String[] args) {
+        // Map
+        Map map = new Map("Map/map.txt");
+        Coordinate mapBound = map.getBound();
+
         // Player
-        Player plyr = new Player(8, 12);
+        Player plyr = new Player(mapBound, 8, 12);
 
         // Engimon Player
-        EngimonPlayer ePlayer = new EngimonPlayer(true, plyr);
+        EngimonPlayer ePlayer = new EngimonPlayer(mapBound, true, plyr);
         
         // Engimon Liar List
         ArrayList<EngimonWild> eWilds = new ArrayList<>();
@@ -16,50 +23,29 @@ public class Main {
         // Scanner
         Scanner sc = new Scanner(System.in);
 
-        // Map
-        Map map = new Map("Map/map.txt");
-
         // command
         String command = "";
         StringBuilder fullCommand = new StringBuilder();
         boolean isProcessingCommand = false;
-
-
+        boolean waitAnotherCommand = false;
+        
         map.Show();
+        map.updatePlayerMap(plyr);
+        map.updateEngimonMap(ePlayer);
+        ThreadEngimonWild myEngimonWildThread = new ThreadEngimonWild(mapBound, eWilds);
+        LocalTime time;
+        myEngimonWildThread.start();
         do {
-            if (!isProcessingCommand) System.out.print("=> ");
+            for (EngimonWild eWild : eWilds) {
+                map.updateEngimonMap(eWild);
+            }
             
-            isProcessingCommand = false;
-            command = sc.next();
-            fullCommand.append(command);
-            if (command.equals("w") || command.equals("a") || command.equals("s") || command.equals("d")) {
-                updateMap(map, plyr.getX(), plyr.getY());
-                updateMap(map, ePlayer.getX(), ePlayer.getY());
-                if (command.equals("w")) {
-                    plyr.MoveUp();
-                    
-                } else if (command.equals("a")) {
-                    plyr.MoveLeft();
-                    
-                } else if (command.equals("s")) {
-                    plyr.MoveDown();
-                    
-                } else if (command.equals("d")) {
-                    plyr.MoveRight();
-                }
-                ePlayer.followPlayer();
-                updatePlayerMap(map, plyr);
-                updateEngimonMap(map, ePlayer);
-            } else if (command.equals("view") || command.equals("engimon")) {
-                if (fullCommand.length() > 40) {
-                    fullCommand.delete(0, fullCommand.length()-1);
-                    isProcessingCommand = false;
-                } else {
-                    isProcessingCommand = true;
-                }
-                continue;
-            } else if (fullCommand.toString().equals("viewengimonliar")) {
+            time = LocalTime.now();
+
+            if (fullCommand.toString().equals("viewengimonliar")) {
+                System.out.println(fullCommand.toString());
                 fullCommand.delete(0, fullCommand.length()-1);
+                System.out.println("VIEW");
                 viewAllEngimonLiar(eWilds);
                 isProcessingCommand = false;
             } else if (fullCommand.toString().equals("viewengimonplayer")) {
@@ -68,77 +54,63 @@ public class Main {
                 isProcessingCommand = false;
             }
 
-            if (!isProcessingCommand) map.Show();
+            if (!isProcessingCommand) System.out.print("=> ");
+            
+            isProcessingCommand = false;
+            waitAnotherCommand = false;
+            
+            command = sc.next();
+            if (command.equals("w") || command.equals("a") || command.equals("s") || command.equals("d")) {
+                int xPOld = plyr.getX(), yPOld = plyr.getY();
+                int xEPlayerOld = ePlayer.getX(), yEPlayerOld = ePlayer.getY();
+                try {
+                    if (command.equals("w")) plyr.MoveUp();    
+                    else if (command.equals("a")) plyr.MoveLeft();
+                    else if (command.equals("s")) plyr.MoveDown();
+                    else if (command.equals("d")) plyr.MoveRight();
+                    map.updateMap(xPOld, yPOld);
+                    map.updateMap(xEPlayerOld, yEPlayerOld);
+                    ePlayer.followPlayer();
+                    map.updatePlayerMap(plyr);
+                    map.updateEngimonMap(ePlayer);
+                    
+                } catch (CoordinateMapOutOFBoundException e) {
+                    waitAnotherCommand = true;
+                    System.out.println("Out OF BOUND!");
+                }
+            } else if (command.equals("view") || command.equals("engimon") || command.equals("liar")) {
+                if (fullCommand.length() > 40) {
+                    fullCommand.delete(0, fullCommand.length()-1);
+                    isProcessingCommand = false;
+                } else {
+                    isProcessingCommand = true;
+                    fullCommand.append(command);
+                }
+            }
+
+            if (!isProcessingCommand && !waitAnotherCommand && !command.equals("q")) map.Show();
+            myEngimonWildThread.setCommand(command);
+
+            System.out.println("Time in seconds: " + time.getSecond());
             
         } while (!command.equals("q"));
-        
+        myEngimonWildThread.interrupt();
         sc.close();
     }
 
     public static void viewAllEngimonLiar(ArrayList<EngimonWild> eWilds) {
+        System.out.println("VIEW ENGIMON WILD:");
         for (EngimonWild eWild : eWilds) {
-            System.out.println("Coordinate:" + "(" + eWild.getX() + "," + eWild.getY() + ")");
-            System.out.println("Element:" + eWild.getElement());
-            System.out.println("Level: " + eWild.getLevel());
-            System.out.println("Element: " + eWild.getElement());
-            System.out.println("Active: " + eWild.getActive());
+            System.out.println("Ele");
+            // System.out.println("Coordinate:" + "(" + eWild.getX() + "," + eWild.getY() + ")");
+            // // System.out.println("Element:" + eWild.getElement());
+            // eWild.getElement();
+            // System.out.println("Level: " + eWild.getLevel());
+            // System.out.println("Element: " + eWild.getElement());
+            // System.out.println("Active: " + eWild.getActive());
 
         }
-    }
 
-    public static void changeEngimonActive(Player plyr, EngimonPlayer ePlayer, int idx) {
-        ePlayer = plyr.setActiveEngimon(idx);
-    }
-    
-    public static void updateMap(Map map, int x, int y) {
-        if (x <= 17) {
-            map.set(x, y, '-');
-        } else if (x >= 18) {
-            if (y <= 15) {
-                map.set(x, y, 'o');
-            } else {
-                map.set(x, y, '-');
-            }
-        }
-    }
-
-    public static void updatePlayerMap(Map map, Player plyr) {
-        map.set(plyr.getX(), plyr.getY(), 'P');
-    }
-
-    public static void updateEngimonMap(Map map, Engimon engimon) {
-        int x = engimon.getX(), y = engimon.getY();
-        char ch = 0;
-        switch (engimon.getElement()) {
-            case Water:
-                ch = 'W';
-                break;
-            case Ice:
-                ch = 'I';
-                break;
-            case Fire:
-                ch = 'F';
-                break;
-            case Ground:
-                ch = 'G';
-                break;
-            case Electric:
-                ch = 'E';
-                break;
-            case Fire_Electric:
-                ch = 'L';
-                break;
-            case Water_Ice:
-                ch = 'S';
-                break;
-            case Water_Ground:
-                ch = 'N';
-                break;
-        }
-        if (engimon.getLevel() < 20) {
-            ch += -'A'+'a';
-        }
-        map.set(x, y, ch);
     }
 
 };
