@@ -20,32 +20,17 @@ public class Player extends Organism {
     public void viewAllEngimon() {
         // engimons.viewAll();
     }
+
     public void MoveUp() throws CoordinateMapOutOFBoundException {
-        try {
-            super.MoveUp();
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(this.getBound());
-        }
+        super.MoveUp();
     }
     public void MoveDown() throws CoordinateMapOutOFBoundException {
-        try {
-            super.MoveDown();
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(this.getBound());
-        }
+        super.MoveDown();
     }
     public void MoveLeft() throws CoordinateMapOutOFBoundException { 
-        try {
-            super.MoveLeft();
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(this.getBound());
-        }
+        super.MoveLeft();
     }
     public void MoveRight() throws CoordinateMapOutOFBoundException { 
-        try {
-            super.MoveRight();
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(this.getBound());
-        }
+        super.MoveRight();
     }
 }

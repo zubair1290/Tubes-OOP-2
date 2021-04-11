@@ -1,9 +1,5 @@
 import java.util.Random;
 
-// import javax.crypto.interfaces.PBEKey;
-
-// import java.util.Random;
-
 public class EngimonWild extends Engimon {
 
     public EngimonWild(Coordinate bound) {
@@ -55,28 +51,20 @@ public class EngimonWild extends Engimon {
             case Water:
             case Ice:
             case Water_Ice:
-                if (map.get(this.getX(), this.getY()) == 'o') {
+                if (map.get(this.getX(), this.getY()-1) != 'o') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveUp();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveUp();
                 }
                 break;
             case Fire:
             case Fire_Electric:
             case Ground:
             case Electric: 
-                if (map.get(this.getX(), this.getY()) == '-') {
+                if (map.get(this.getX(), this.getY()-1) != '-') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveUp();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveUp();
                 }
                 break;
             case Water_Ground:
@@ -88,28 +76,20 @@ public class EngimonWild extends Engimon {
             case Water:
             case Ice:
             case Water_Ice:
-                if (map.get(this.getX(), this.getY()) == 'o') {
+                if (map.get(this.getX(), this.getY()+1) != 'o') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveDown();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveDown();
                 }
                 break;
             case Fire:
             case Fire_Electric:
             case Ground:
             case Electric: 
-                if (map.get(this.getX(), this.getY()) == '-') {
+                if (map.get(this.getX(), this.getY()+1) != '-') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveDown();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveDown();
                 }
                 break;
             case Water_Ground:
@@ -121,28 +101,20 @@ public class EngimonWild extends Engimon {
             case Water:
             case Ice:
             case Water_Ice:
-                if (map.get(this.getX(), this.getY()) == 'o') {
+                if (map.get(this.getX()-1, this.getY()) != 'o') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveLeft();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveLeft();
                 }
                 break;
             case Fire:
             case Fire_Electric:
             case Ground:
             case Electric: 
-                if (map.get(this.getX(), this.getY()) == '-') {
+                if (map.get(this.getX()-1, this.getY()) != '-') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveLeft();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveLeft();
                 }
                 break;
             case Water_Ground:
@@ -154,28 +126,20 @@ public class EngimonWild extends Engimon {
             case Water:
             case Ice:
             case Water_Ice:
-                if (map.get(this.getX(), this.getY()) == 'o') {
+                if (map.get(this.getX()+1, this.getY()) != 'o') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveRight();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveRight();
                 }
                 break;
             case Fire:
             case Fire_Electric:
             case Ground:
             case Electric: 
-                if (map.get(this.getX(), this.getY()) == '-') {
+                if (map.get(this.getX()+1, this.getY()) != '-') {
                     throw new CoordinateEngimonIsNotInAreaException();
                 } else {
-                    try {
-                        super.MoveRight();
-                    } catch (CoordinateMapOutOFBoundException e) {
-                        throw new CoordinateMapOutOFBoundException(this.getBound());
-                    }
+                    super.MoveRight();
                 }
                 break;
             case Water_Ground:

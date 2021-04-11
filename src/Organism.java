@@ -26,7 +26,6 @@ public abstract class Organism {
         } else {
             throw new CoordinateMapOutOFBoundException(co);
         }
-            
     }
 
     public boolean isInMap(int x, int y) {
@@ -36,37 +35,18 @@ public abstract class Organism {
     public Coordinate getBound() {
         return this.bound;
     }
-
-    // public abstract void MoveUp() throws CoordinateMapOutOFBoundException;
-    // public abstract void MoveUp() throws CoordinateMapOutOFBoundException, CoordinateEngimonIsNotInAreaException;
     
     protected void MoveUp() throws CoordinateMapOutOFBoundException {
-        try {
-            setCo(co.getX(), co.getY()+1);
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(bound);
-        }
+        setCo(co.getX(), co.getY()-1);
     }
     protected void MoveDown() throws CoordinateMapOutOFBoundException {
-        try {
-            setCo(co.getX(), co.getY()+1);
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(bound);
-        }
+        setCo(co.getX(), co.getY()+1);
     }
     protected void MoveLeft() throws CoordinateMapOutOFBoundException { 
-        try {
-            setCo(co.getX()-1, co.getY());
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(bound);
-        }
+        setCo(co.getX()-1, co.getY());
     }
     protected void MoveRight() throws CoordinateMapOutOFBoundException { 
-        try {
-            setCo(co.getX()+1, co.getY()); 
-        } catch (CoordinateMapOutOFBoundException e) {
-            throw new CoordinateMapOutOFBoundException(bound);
-        }
+        setCo(co.getX()+1, co.getY()); 
     }
 
 }
