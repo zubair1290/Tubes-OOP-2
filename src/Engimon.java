@@ -5,9 +5,11 @@ public abstract class Engimon extends Organism{
     protected Element element;
     protected int level;
     protected Skill skill;
+    protected int life;
 
-    public Engimon(Coordinate bound) {
+    public Engimon(Coordinate bound, int life) {
         super(bound);
+        this.life = life;
     }
 
     public boolean getActive() {
@@ -32,5 +34,9 @@ public abstract class Engimon extends Organism{
 
     public String getSpecies() {
         return species;
+    }
+
+    public int getLife() {
+        return life;
     }
 };

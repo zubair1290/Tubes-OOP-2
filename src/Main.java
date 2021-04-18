@@ -1,6 +1,4 @@
 import java.util.Scanner;
-
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -16,6 +14,10 @@ public class Main {
 
         // Engimon Player
         EngimonPlayer ePlayer = new EngimonPlayer(mapBound, true, plyr);
+
+        // Inventory for Engimon Player and Skill
+        Inventory<EngimonPlayer> ePlayerInventory = new Inventory<>();
+        Inventory<Skill> skillPlayerInventory = new Inventory<>();
         
         // Engimon Liar List
         ArrayList<EngimonWild> eWilds = new ArrayList<>();
@@ -28,6 +30,7 @@ public class Main {
         StringBuilder fullCommand = new StringBuilder();
         boolean isProcessingCommand = false;
         boolean waitAnotherCommand = false;
+        boolean isCanBattle = false;
         
         map.Show();
         map.updatePlayerMap(plyr);
@@ -39,25 +42,39 @@ public class Main {
             for (EngimonWild eWild : eWilds) {
                 map.updateEngimonMap(eWild);
             }
+            isCanBattle = false;
             
             time = LocalTime.now();
+            // System.out.println(fullCommand);
 
-            if (fullCommand.toString().equals("viewengimonliar")) {
+            if (fullCommand.toString().contains("viewengimonliar")) {
                 System.out.println(fullCommand.toString());
                 fullCommand.delete(0, fullCommand.length()-1);
-                System.out.println("VIEW");
+                // System.out.println("VIEW");
                 viewAllEngimonLiar(eWilds);
                 isProcessingCommand = false;
-            } else if (fullCommand.toString().equals("viewengimonplayer")) {
+            } else if (fullCommand.toString().contains("viewengimonplayer")) {
                 fullCommand.delete(0, fullCommand.length()-1);
                 plyr.viewAllEngimon();
                 isProcessingCommand = false;
             }
 
-            if (!isProcessingCommand) System.out.print("=> ");
+            if (!isProcessingCommand) {
+                for (EngimonWild eWild : eWilds) {
+                    Coordinate eWildCoordinate = plyr.minusCo(eWild);
+                    if (eWildCoordinate.isEqual(0, 1) || eWildCoordinate.isEqual(1, 0) || eWildCoordinate.isEqual(0, -1) || eWildCoordinate.isEqual(-1, 0)) {
+                        isCanBattle = true;
+                        System.out.println("Wanna battle?");
+                        break;
+                    }
+                }
+
+                System.out.print("=> ");
+            }
             
             isProcessingCommand = false;
             waitAnotherCommand = false;
+            
             
             command = sc.next();
             if (command.equals("w") || command.equals("a") || command.equals("s") || command.equals("d")) {
@@ -86,12 +103,70 @@ public class Main {
                     isProcessingCommand = true;
                     fullCommand.append(command);
                 }
-            }
+            } else if (command.equals("battle")) {
+                if (isCanBattle) {
+                    ArrayList<Coordinate> listAllCoordinatesEWildToBattle = new ArrayList<>();
+                    ArrayList<EngimonWild> listAllEWildToBattle = new ArrayList<>();
+                    String[] eWildPos = {"left", "right", "up", "down"};
+                    boolean[] eWildBoolPos = {false, false, false, false};
+                    Coordinate[] eWildPossibleCo = {new Coordinate(1, 0), new Coordinate(-1, 0), new Coordinate(0, 1), new Coordinate(0, -1)};
+                    for (EngimonWild eWild : eWilds) {
+                        Coordinate eWildCo = plyr.minusCo(eWild);
+                        for (int i=0; i < 4; i++) {
+                            if (eWildCo.isEqual(eWildPossibleCo[i].getX(), eWildPossibleCo[i].getY())) {
+                                eWildBoolPos[i] = true;
+                                listAllEWildToBattle.add(eWild);
+                                listAllCoordinatesEWildToBattle.add(eWildCo);
+                                if (i < 2) {
+                                    System.out.println("Engimon Wild is on the " + eWildPos[i]);
+                                } else if (i == 3) {
+                                    System.out.println("Engimon Wild is above");
+                                } else {
+                                    System.out.println("Engimon Wild is below");
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    
+                    myEngimonWildThread.setCommand("sleep");
+                    System.out.print("=> ");
+                    command = sc.next();
 
-            if (!isProcessingCommand && !waitAnotherCommand && !command.equals("q")) map.Show();
+                    for (int i=0; i < 4; i++) {
+                        if (command.equals(eWildPos[i])) {
+                            if (eWildBoolPos[i]) {
+                                for (EngimonWild engimonWild : listAllEWildToBattle) {
+                                    if (engimonWild.getX() == eWildPossibleCo[i].getX() && engimonWild.getY() == eWildPossibleCo[i].getY()) {
+                                        plyr.fight(engimonWild);
+                                    }
+                                }
+                            } else {
+                                if (i < 2) {
+                                    System.out.println("There is not any engimon wild on the " + eWildPos[i] + ".");
+                                } else if (i == 3) {
+                                    System.out.println("There is not any engimon wild above");
+                                } else {
+                                    System.out.println("There is not any engimon wild below");
+                                }
+                            }
+                        } 
+                    }
+                    myEngimonWildThread.interrupt();
+                } else {
+                    System.out.println("There is not any engimon wild to battle!");
+                }
+            } else if (command.equals("list command")) {
+            }
+        
+
+            if (!isProcessingCommand && !waitAnotherCommand && !command.equals("q")) {
+                map.Show();
+                System.out.println("Time in seconds: " + time.getSecond());
+            }
+            
             myEngimonWildThread.setCommand(command);
 
-            System.out.println("Time in seconds: " + time.getSecond());
             
         } while (!command.equals("q"));
         myEngimonWildThread.interrupt();
@@ -99,18 +174,18 @@ public class Main {
     }
 
     public static void viewAllEngimonLiar(ArrayList<EngimonWild> eWilds) {
-        System.out.println("VIEW ENGIMON WILD:");
+        // System.out.println("VIEW ENGIMON WILD:");
         for (EngimonWild eWild : eWilds) {
-            System.out.println("Ele");
-            // System.out.println("Coordinate:" + "(" + eWild.getX() + "," + eWild.getY() + ")");
-            // // System.out.println("Element:" + eWild.getElement());
-            // eWild.getElement();
-            // System.out.println("Level: " + eWild.getLevel());
-            // System.out.println("Element: " + eWild.getElement());
-            // System.out.println("Active: " + eWild.getActive());
+            // System.out.println("Ele");
+            System.out.println("Coordinate: " + "(" + eWild.getX() + "," + eWild.getY() + ")");
+            System.out.println("Species: " + eWild.getSpecies());
+            System.out.print("Element: ");
+            System.out.println(eWild.getElement());
+            System.out.println("Life: " + eWild.getLife());
+            System.out.println("Level: " + eWild.getLevel());
+            System.out.println("Active: " + eWild.getActive());
 
         }
-
     }
 
 };

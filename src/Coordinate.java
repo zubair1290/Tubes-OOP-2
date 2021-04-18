@@ -25,4 +25,11 @@ public class Coordinate {
         return this.x == x && this.y == y;
     }
 
+    public Coordinate minus(Coordinate co) {
+        return new Coordinate(this.x - co.x, this.y - co.y);
+    }
+    public boolean equals(Coordinate obj) {
+        return this.x == obj.x && this.y == obj.y;
+    }
+
 }

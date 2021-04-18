@@ -97,7 +97,7 @@ public class Player extends Organism {
             double multiplierEngLiar = compareElement(engLiar.getElement(), this.engimonPlayerActive.getElement());
             // int sumTotalSkillPoweEngLiar= engLiar.sumTotalSkillPower();
             double totalPowerEngLiar = engLiar.getLevel() * multiplierEngLiar; // +sumSkillEngLiar;
-
+            
             if (totalPowerEngPlayer >= totalPowerEngLiar) {// if draw then assumed win
                 System.out.println("You win the battle");
                 return true;

@@ -35,6 +35,10 @@ public abstract class Organism {
     public Coordinate getBound() {
         return this.bound;
     }
+
+    public Coordinate minusCo(Organism org) {
+        return this.co.minus(org.co);
+    }
     
     protected void MoveUp() throws CoordinateMapOutOFBoundException {
         setCo(co.getX(), co.getY()-1);

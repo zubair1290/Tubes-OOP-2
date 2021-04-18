@@ -5,10 +5,11 @@ public class EngimonPlayer extends Engimon {
 
     public EngimonPlayer(Coordinate bound, Player plyr) {
         this(bound, false, plyr);
+        
     }
     
     public EngimonPlayer(Coordinate bound, boolean active, Player plyr) {
-        super(bound);
+        super(bound, 3);
         this.active = active;
         this.level = 0;
         this.species = "";

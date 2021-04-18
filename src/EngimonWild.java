@@ -3,7 +3,7 @@ import java.util.Random;
 public class EngimonWild extends Engimon {
 
     public EngimonWild(Coordinate bound) {
-        super(bound);
+        super(bound, 1);
         // species random
         Random rand = new Random();
         this.level = rand.nextInt(30);
