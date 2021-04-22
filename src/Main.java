@@ -187,5 +187,36 @@ public class Main {
 
         }
     }
+    
+    public void learn(Skill s, EngimonPlayer a){
+		if (a.isSkillFull()){
+			//throw (LearnExp(SLOT_SKILL_FULL));
+			replaceSkillEngimon(s, a)
+		}else {
+			if (a.isThereSameElmt(s.elements)){
+				if (isThereSameSkill(s.skill)){
+					//throw (LearnExp(THERE_IS_SAME_SKILL));
+				}else{
+					a.addSkill(S, E);
+				}
+			}else{
+				//throw (LearnExp(NOT_SAME_ELMT));
+			}
+		}
+	}
+	public void replaceSkillEngimon(Skill s, EngimonPlayer e){
+		String confirm;
+		int x;
+		System.out.println("Replace? (Y/N) : ");
+		Scanner sc = new Scanner(System.in);
+		String confirm = sc.nextLine();
+		if (confirm == "Y"){
+			showEngimonSkills(e);
+			System.out.println("Skill yang ingin direposisi (1/2/3/4):");
+			int x = sc.nextInt();
+			e.skill[x-1] = s;
+			System.out.println("Reposisi Skill selesai ...");
+		}
+	}
 
 };
