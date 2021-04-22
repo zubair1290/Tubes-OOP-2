@@ -38,6 +38,7 @@ public class Main {
         ThreadEngimonWild myEngimonWildThread = new ThreadEngimonWild(map, mapBound, eWilds);
         LocalTime time;
         myEngimonWildThread.start();
+	skill();
         do {
             for (EngimonWild eWild : eWilds) {
                 map.updateEngimonMap(eWild);
