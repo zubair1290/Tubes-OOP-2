@@ -4,7 +4,7 @@ public abstract class Engimon extends Organism{
     protected boolean active;
     protected Element element;
     protected int level;
-    ArrayList <Skill> skill;
+    List <Skill> skill;
     protected int life;
 
     public Engimon(Coordinate bound, int life) {
@@ -21,14 +21,14 @@ public abstract class Engimon extends Organism{
     }
 
     public int sumTotalSkillPower() {
-        return 1;
+        return skill.size();
     }
 
     public int getLevel() {
         return level;
     }
 
-    public Skill getSkill() {
+    public List<Skill> getSkill() {
         return skill;
     }
 
