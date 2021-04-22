@@ -187,6 +187,27 @@ public class Main {
 
         }
     }
+public void skill(){
+	//Skill Punch();
+	//Punch("Punch", 400, 1, 1, [Fire, Ice, Water, Electric, Ground, Fire_Electric, Water_Ice, Water_Ground]);
+	//Skill JudoKick();
+	//JudoKick("JudoKick", 400, 1, 1, [Fire, Ice, Water, Electric, Ground, Fire_Electric, Water_Ice, Water_Ground]);
+	Skill Fireball = new Skill("Fireball", 500, 1, 1, [Fire]);
+	Skill Flamethrower = new Skill("Flamethrower", 600, 1, 1, [Fire]);
+	Skill NuclearHit = new Skill("NuclearHit", 700, 1, 1, [Fire_Electric]);
+	Skill Wave = new Skill("Wave", 500, 1, 1, [Water]);
+	Skill Tsunami = new Skill("Tsunami", 600, 1, 1, [Water_Ground]);
+	Skill Storm = new Skill("Storm", 700, 1, 1, [Water]);
+	Skill FrostNova = new Skill("FrostNova", 500, 1, 1, [Ice]);
+	Skill CryogenicFreeze = new Skill("CryogenicFreeze", 600, 1, 1, [Ice]);
+	Skill IceSpikes = new Skill("IceSpikes", 700, 1, 1, [Water_Ice]);
+	Skill Earthquake = new Skill("Earthquake", 500, 1, 1, [Ground]);
+	Skill MeteorStrike = new Skill("MeteorStrike", 600, 1, 1, [Ground]);
+	Skill Asteroid = new Skill("Asteroid", 700, 1, 1, [Ground]);
+	Skill Lightning = new Skill("Lightning", 500, 1, 1, [Electric]);
+	Skill ElectroBall = new Skill("ElectroBall", 600, 1, 1, [Fire_Electric]);
+	Skill TeslaRay = new Skill("TeslaRay", 700, 1, 1, [Electric]);
+}
     
     public void learn(Skill s, EngimonPlayer a){
 		if (a.isSkillFull()){
@@ -203,7 +224,7 @@ public class Main {
 				//throw (LearnExp(NOT_SAME_ELMT));
 			}
 		}
-	}
+    }
 	public void replaceSkillEngimon(Skill s, EngimonPlayer e){
 		String confirm;
 		int x;
