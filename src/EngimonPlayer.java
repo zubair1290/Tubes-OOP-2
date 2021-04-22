@@ -14,7 +14,7 @@ public class EngimonPlayer extends Engimon {
         this.level = 0;
         this.species = "";
         this.element = Element.Ground;
-        this.skill = new Skill();
+        this.skill = new ArrayList<Skill>();
         
         this.plyr = plyr;
         try {
