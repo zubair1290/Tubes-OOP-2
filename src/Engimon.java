@@ -4,7 +4,7 @@ public abstract class Engimon extends Organism{
     protected boolean active;
     protected Element element;
     protected int level;
-    protected Skill skill;
+    ArrayList <Skill> skill;
     protected int life;
 
     public Engimon(Coordinate bound, int life) {
