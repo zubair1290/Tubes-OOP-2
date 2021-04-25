@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-public class Inventory<T> {
+public class Inventory<T extends InventoryParent> {
     private ArrayList<T> invent;
-    static int countItem;
-    static int max = 5;
+    static private int countItem;
+    static private int max = 5;
 
-    public Inventory(){
-        ArrayList<T> invent = new ArrayList<>();
+    public Inventory() {
+        invent = new ArrayList<>();
     }
 
     public void addSkill(T sekil){
         boolean ada = false;
-        for (T t : invent) {
+        for (InventoryParent t : invent) {
             if (sekil == t) {
                 ada = true;
                 break;
@@ -34,13 +34,16 @@ public class Inventory<T> {
         return invent;
     }
 
-    public int getCountItem(){
+    public static int getCountItem(){
         return countItem;
     }
 
-    public int maxCap(){
+    public static int maxCap(){
         return max;
     }
+
+    public static void addCountItem() { countItem++; }
+    public static void reduceCountItem() { countItem++; }
 
     public boolean isFull(){
         return getCountItem() == maxCap();

@@ -1,20 +1,19 @@
-
-public class EngimonPlayer extends Engimon {
+import java.util.ArrayList;
+public class EngimonPlayer extends Engimon implements InventoryParent {
     Player plyr;
     Direction direction;
+    boolean active;
 
-    public EngimonPlayer(Coordinate bound, Player plyr) {
-        this(bound, false, plyr);
-        
+    public EngimonPlayer(String name, Coordinate bound, Player plyr) {
+        this(name, bound, false, plyr);
     }
     
-    public EngimonPlayer(Coordinate bound, boolean active, Player plyr) {
-        super(bound, 3);
+    public EngimonPlayer(String name, Coordinate bound, boolean active, Player plyr) {
+        super(name, new ArrayList<Skill>(), bound, 3);
         this.active = active;
         this.level = 0;
         this.species = "";
         this.element = Element.Ground;
-        this.skill = new ArrayList<Skill>();
         
         this.plyr = plyr;
         try {
@@ -23,6 +22,25 @@ public class EngimonPlayer extends Engimon {
             e.printStackTrace();
         }
         this.direction = Direction.right;
+    }
+
+    public boolean getActive() { return this.active; }
+
+    public boolean isSkillFull() { return this.skills.size() >= 4; }
+
+    public void showSkills() {
+        int i = 0;
+        for (Skill skill : skills) {
+            System.out.println("Skill " + i++);
+            System.out.println("Skill: " + skill.skill);
+            System.out.println("Base Power: " + skill.basePower);
+            System.out.println("Mastery Level: " + skill.masteryLevel);
+            System.out.println();
+        }
+    }
+
+    public void addSkill(Skill skill) {
+        this.skills.add(skill);
     }
     
     public void followPlayer() {

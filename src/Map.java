@@ -52,11 +52,11 @@ public class Map {
         this.set(x, y, this.get(x, y));
     }
 
-    public void updatePlayerMap(Player plyr) {
-        this.set(plyr.getX(), plyr.getY(), 'P');
+    public void updatePlayerMap(int x, int y) {
+        this.set(x, y, 'P');
     }
 
-    public void updateEngimonMap(Engimon engimon) {
+    public void updateEngimonWildMap(EngimonWild engimon) {
         int x = engimon.getX(), y = engimon.getY();
         char ch = 0;
         switch (engimon.getElement()) {
@@ -89,6 +89,10 @@ public class Map {
             ch += -'A'+'a';
         }
         this.set(x, y, ch);
+    }
+    
+    public void updateEngimonActivePlayerMap(int x, int y) {
+        this.set(x, y, 'x');
     }
 
     public void Show() {

@@ -1,9 +1,9 @@
 import java.util.Random;
-
+import java.util.ArrayList;
 public class EngimonWild extends Engimon {
 
-    public EngimonWild(Coordinate bound) {
-        super(bound, 1);
+    public EngimonWild(String name, Coordinate bound) {
+        super(name, new ArrayList<Skill>(), bound, 1);
         // species random
         Random rand = new Random();
         this.level = rand.nextInt(30);

@@ -7,24 +7,41 @@ public class Player extends Organism {
 
     public Player(Coordinate Bound, int x, int y) {
         super(Bound, x, y);
+        skills = new Inventory<>();
+        engimons = new Inventory<>();
     }
 
-    public void changeEngimonActive(EngimonPlayer ePlayer, int idx) {
-        ePlayer = this.setActiveEngimon(idx);
+    public EngimonPlayer getActiveEngimonPlayer() { return this.engimonPlayerActive; }
+    public int getXActiveEngimon() { return this.engimonPlayerActive.getX(); }
+    public int getYActiveEngimon() { return this.engimonPlayerActive.getY(); }
+
+    public void addEngimonPlayer(EngimonPlayer ePlayer) {
+        if (Inventory.getCountItem() <= 0) engimonPlayerActive = ePlayer;
+        ePlayer.active = true;
+        engimons.addEngimonPlayer(ePlayer);
+        Inventory.addCountItem();
+    }
+    
+    public void addSkill(Skill skill) {
+        skills.addSkill(skill);
+        Inventory.addCountItem();
     }
 
-    private EngimonPlayer setActiveEngimon(int idx) {
-        return null;
-        // return engimons.setActive(idx);
+    public void changeEngimonActive(int idx) {
+        InventoryUtility.setDeactive(engimonPlayerActive);
+        engimonPlayerActive = InventoryUtility.setActive(engimons, idx);
     }
 
     public void viewAllEngimon() {
-        // engimons.viewAll();
+        System.out.println("List All Engimon Player:");
+        InventoryUtility.viewAll(engimons);
     }
 
     public void MoveUp() throws CoordinateMapOutOFBoundException {
         try {
             super.MoveUp();
+            this.engimonPlayerActive.expUp();
+            if (this.engimonPlayerActive.isLevelUp()) this.engimonPlayerActive.levelUp();
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
@@ -33,6 +50,8 @@ public class Player extends Organism {
     public void MoveDown() throws CoordinateMapOutOFBoundException {
         try {
             super.MoveDown();
+            this.engimonPlayerActive.expUp();
+            if (this.engimonPlayerActive.isLevelUp()) this.engimonPlayerActive.levelUp();
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
@@ -41,6 +60,8 @@ public class Player extends Organism {
     public void MoveLeft() throws CoordinateMapOutOFBoundException {
         try {
             super.MoveLeft();
+            this.engimonPlayerActive.expUp();
+            if (this.engimonPlayerActive.isLevelUp()) this.engimonPlayerActive.levelUp();
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
@@ -49,6 +70,8 @@ public class Player extends Organism {
     public void MoveRight() throws CoordinateMapOutOFBoundException {
         try {
             super.MoveRight();
+            this.engimonPlayerActive.expUp();
+            if (this.engimonPlayerActive.isLevelUp()) this.engimonPlayerActive.levelUp();
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
