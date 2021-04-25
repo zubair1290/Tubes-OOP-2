@@ -13,22 +13,24 @@ public class Main {
         Player plyr = new Player(mapBound, 8, 12);
 
         // Engimon Player
-        plyr.addEngimonPlayer(new EngimonPlayer("Cturty", mapBound, false, plyr));
-        plyr.addEngimonPlayer(new EngimonPlayer("Podqer", mapBound, false, plyr));
-        plyr.addEngimonPlayer(new EngimonPlayer("Fergty", mapBound, false, plyr));
-        plyr.addEngimonPlayer(new EngimonPlayer("Klesrfy", mapBound, false, plyr));
-        plyr.changeEngimonActive(3);
+        plyr.addEngimonPlayer(new EngimonPlayer("Cturty", Element.Electric, mapBound, false, plyr));
+        plyr.addEngimonPlayer(new EngimonPlayer("Podqer", Element.Fire, mapBound, false, plyr));
+        plyr.addEngimonPlayer(new EngimonPlayer("Fergty", Element.Ground, mapBound, false, plyr));
+        plyr.addEngimonPlayer(new EngimonPlayer("Klesrfy", Element.Ground, mapBound, false, plyr));
         plyr.changeEngimonActive(1);
 
         // Engimon Liar List
         ArrayList<EngimonWild> eWilds = new ArrayList<>();
+
+        // List Skill
+        ArrayList<Skill> skills = new ArrayList<>();
+        initSkill(skills);
         
         // Scanner
         Scanner sc = new Scanner(System.in);
 
-        // command
+        // Command
         String command = "";
-        StringBuilder fullCommand = new StringBuilder();
         boolean isProcessingCommand = false;
         boolean waitAnotherCommand = false;
         boolean isCanBattle = false;
@@ -51,32 +53,6 @@ public class Main {
             isCanBattle = false;
             
             time = LocalTime.now();
-            // System.out.println(fullCommand);
-
-            if (fullCommand.toString().contains("viewengimonliar")) {
-                System.out.println(fullCommand.toString());
-                fullCommand.delete(0, fullCommand.length()-1);
-                // System.out.println("VIEW");
-                // viewAllEngimonLiar(eWilds);
-                isProcessingCommand = false;
-            } else if (fullCommand.toString().contains("viewengimonplayer")) {
-                fullCommand.delete(0, fullCommand.length()-1);
-                plyr.viewAllEngimon();
-                isProcessingCommand = false;
-            } else if (fullCommand.toString().contains("listcommand")) {
-                System.out.println("list command: ");
-                System.out.println("w: ");
-                System.out.println("a: ");
-                System.out.println("s: ");
-                System.out.println("d: ");
-                System.out.println("set active: ");
-                System.out.println("battle: ");
-                System.out.println("view engimon player: ");
-                System.out.println("view engimon liar: ");
-            } else if (fullCommand.toString().contains("set active")) {
-
-            }
-
             if (!isProcessingCommand) {
                 for (EngimonWild eWild : eWilds) {
                     Coordinate eWildCoordinate = plyr.minusCo(eWild);
@@ -94,7 +70,7 @@ public class Main {
             waitAnotherCommand = false;
             
             
-            command = sc.next();
+            command = sc.nextLine();
             if (command.equals("w") || command.equals("a") || command.equals("s") || command.equals("d")) {
                 int xPOld = plyr.getX(), yPOld = plyr.getY();
                 int xEPlayerOld = plyr.getXActiveEngimon(), yEPlayerOld = plyr.getYActiveEngimon();
@@ -166,16 +142,72 @@ public class Main {
                 } else {
                     System.out.println("There is not any engimon wild to battle!");
                 }
-            } else if (command.equals("view") || command.equals("engimon") || command.equals("liar") || 
-                command.equals("player") || command.equals("list") || command.equals("command") || 
-                command.equals("set") || command.equals("active")) {
-                if (fullCommand.length() > 40) {
-                    fullCommand.delete(0, fullCommand.length()-1);
-                    isProcessingCommand = false;
-                } else {
-                    isProcessingCommand = true;
-                    fullCommand.append(command);
+            } else if (command.equals("learn")) {
+                int c = 0;
+                for (Skill skill : skills) {
+                    System.out.println("No. " + c++);
+                    System.out.println("Skill: " + skill.getSkill());
+                    System.out.println("Base Power: " + skill.getPower());
+                    System.out.print("Element Required: ");
+                    for (int i=0; i < skill.getElements().size()-1; i++) {
+                        System.out.print(skill.getElements().get(i));
+                        System.out.print(", ");
+                    }
+                    System.out.println(skill.getElements().get(skill.getElements().size()-1));
+                    System.out.println("Mastery Level: " + skill.getMasteryLevel());
+                    System.out.println();
                 }
+                System.out.print("Learn Skill Number: ");
+                int idx = sc.nextInt();
+                learn(skills.get(idx), plyr);
+                sc.nextLine();
+            } else if (command.equals("view engimon liar")) {
+                viewAllEngimonLiar(eWilds);
+                sc.nextLine();
+            } else if (command.equals("view engimon player")) {
+                plyr.viewAllEngimon();
+                sc.nextLine();
+            } else if (command.equals("list command")) {
+                System.out.println("list command: List All Command");
+                System.out.println("w: Player Move Up");
+                System.out.println("a: Player Move Left");
+                System.out.println("s: Player Move Down");
+                System.out.println("d: Player Move Right");
+                System.out.println("switch active engimon: Switch Active Engimon");
+                System.out.println("battle: Battle to the nearest Engimon Wild");
+                System.out.println("view engimon player: View All Engimon Player");
+                System.out.println("view engimon liar: View All Engimon Liar");
+                sc.nextLine();
+            } else if (command.equals("switch active engimon")) {
+                int idx = sc.nextInt();
+                plyr.viewAllEngimon();
+                plyr.changeEngimonActive(idx);
+                System.out.println("Engimon Active Switched");
+                System.out.println("Name: " + plyr.getActiveEngimonPlayer().getName());
+                System.out.println("Coordinate: " + "(" + plyr.getActiveEngimonPlayer().getX() + "," + plyr.getActiveEngimonPlayer().getY() + ")");
+                System.out.println("Species: " + plyr.getActiveEngimonPlayer().getSpecies());
+                System.out.print("Element: ");
+                System.out.println(plyr.getActiveEngimonPlayer().getElement());
+                System.out.println("Life: " + plyr.getActiveEngimonPlayer().getLife());
+                System.out.println("Level: " + plyr.getActiveEngimonPlayer().getLevel());
+                System.out.println("Active: " + plyr.getActiveEngimonPlayer().getActive());
+                System.out.print("Skill: ");
+                int c = 0;
+                for (Skill skill : plyr.getActiveEngimonPlayer().getSkills()) {
+                    System.out.println("No. " + c++);
+                    System.out.println("Skill: " + skill.getSkill());
+                    System.out.println("Base Power: " + skill.getPower());
+                    System.out.print("Element Required: ");
+                    for (int i=0; i < skill.getElements().size()-1; i++) {
+                        System.out.print(skill.getElements().get(i));
+                        System.out.print(", ");
+                    }
+                    System.out.println(skill.getElements().get(skill.getElements().size()-1));
+                    System.out.println("Mastery Level: " + skill.getMasteryLevel());
+                    System.out.println();
+                }
+                System.out.println();
+                sc.nextLine();
             }
         
 
@@ -206,58 +238,44 @@ public class Main {
         }
     }
 
-    public void skill() {
-        //Skill Punch();
-        Skill Punch = new Skill("Punch", 400, 1, 1, new Element [] {Element.Fire, Element.Ice, Element.Water, Element.Electric, Element.Ground, Element.Fire_Electric, Element.Water_Ice, Element.Water_Ground});
-        //Skill JudoKick();
-        Skill JudoKick = new Skill("JudoKick", 400, 1, 1, new Element [] {Element.Fire, Element.Ice, Element.Water, Element.Electric, Element.Ground, Element.Fire_Electric, Element.Water_Ice, Element.Water_Ground});
-        Skill Fireball = new Skill("Fireball", 500, 1, 1, new Element[] {Element.Fire});
-        Skill Flamethrower = new Skill("Flamethrower", 600, 1, 1, new Element[] {Element.Fire});
-        Skill NuclearHit = new Skill("NuclearHit", 700, 1, 1, new Element[] {Element.Fire_Electric});
-        Skill Wave = new Skill("Wave", 500, 1, 1, new Element[] {Element.Water});
-        Skill Tsunami = new Skill("Tsunami", 600, 1, 1, new Element[] {Element.Water_Ground});
-        Skill Storm = new Skill("Storm", 700, 1, 1, new Element[] {Element.Water});
-        Skill FrostNova = new Skill("FrostNova", 500, 1, 1, new Element[] {Element.Ice});
-        Skill CryogenicFreeze = new Skill("CryogenicFreeze", 600, 1, 1, new Element[] {Element.Ice});
-        Skill IceSpikes = new Skill("IceSpikes", 700, 1, 1, new Element[] {Element.Water_Ice});
-        Skill Earthquake = new Skill("Earthquake", 500, 1, 1, new Element[] {Element.Ground});
-        Skill MeteorStrike = new Skill("MeteorStrike", 600, 1, 1, new Element[] {Element.Ground});
-        Skill Asteroid = new Skill("Asteroid", 700, 1, 1, new Element[] {Element.Ground});
-        Skill Lightning = new Skill("Lightning", 500, 1, 1, new Element[] {Element.Electric});
-        Skill ElectroBall = new Skill("ElectroBall", 600, 1, 1, new Element[] {Element.Fire_Electric});
-        Skill TeslaRay = new Skill("TeslaRay", 700, 1, 1, new Element[] {Element.Electric});
-    }
-    
     // public void learn(Skill s, EngimonPlayer a){
-    public void learn(Skill skill, Player player){
+    public static void learn(Skill skill, Player player) {
+        Skill skill_n = new Skill(skill);
         EngimonPlayer ePlayer = player.getActiveEngimonPlayer();
+        System.out.println("Learn");
 		if (ePlayer.isSkillFull()){
-			// throw (LearnExp(SLOT_SKILL_FULL));
-			replaceSkillEngimon(skill, ePlayer);
+            System.out.println("Your skills are full");
+            // throw (LearnExp(SLOT_SKILL_FULL));
+			replaceSkillEngimon(skill_n, ePlayer);
 		} else {
 			// if (a.isThereSameElmt(s.elements)){
-            if (skill.getElements().contains(ePlayer.getElement())) {
+            if (skill_n.getElements().contains(ePlayer.getElement())) {
                 // if (isThereSameSkill(s.skill)){
-                if (ePlayer.getSkills().contains(skill)) {
+                if (ePlayer.getSkills().contains(skill_n)) {
                     // throw (LearnExp(THERE_IS_SAME_SKILL));
+                    System.out.println("You have already learn this skill.");
                 } else {
                     if (Inventory.getCountItem() < Inventory.maxCap()) {
-                        // 	a.addSkill(S, E);
-                        ePlayer.addSkill(skill);
-                        player.addSkill(skill);
+                        // a.addSkill(S, E);
+                        System.out.println("Skill Added.");
+                        ePlayer.addSkill(skill_n);
+                        player.addSkill(skill_n);
                     } else {
-                        System.out.println("Your Inventory is full");
+                        System.out.println(Inventory.getCountItem());
+                        System.out.println(Inventory.maxCap());
+                        System.out.println("Your Inventory is full.");
                     }
                 }
 			} else {
+                System.out.println("You are not required to learn this skill.");
 				// throw (LearnExp(NOT_SAME_ELMT));
 			}
 		}
     }
-	public void replaceSkillEngimon(Skill skill, EngimonPlayer ePlayer){
-		System.out.println("Replace? (Y/N) : ");
+	public static void replaceSkillEngimon(Skill skill, EngimonPlayer ePlayer){
+		System.out.print("Replace? (Y/N) : ");
 		Scanner sc = new Scanner(System.in);
-		String confirm = sc.nextLine();
+		String confirm = sc.next();
 		if (confirm == "Y") {
 			// showEngimonSkills(e);
             ePlayer.showSkills();
@@ -269,5 +287,25 @@ public class Main {
 		}
         sc.close();
 	}
+
+    public static void initSkill(ArrayList<Skill> skills) {
+        skills.add(new Skill("Punch", 400, 1, 1, new Element[] {Element.Fire, Element.Ice, Element.Water, Element.Electric, Element.Ground, Element.Fire_Electric, Element.Water_Ice, Element.Water_Ground}));
+        skills.add(new Skill("JudoKick", 400, 1, 1, new Element[] {Element.Fire, Element.Ice, Element.Water, Element.Electric, Element.Ground, Element.Fire_Electric, Element.Water_Ice, Element.Water_Ground}));
+        skills.add(new Skill("Fireball", 500, 1, 1, new Element[] {Element.Fire}));
+        skills.add(new Skill("Flamethrower", 600, 1, 1, new Element[] {Element.Fire}));
+        skills.add(new Skill("NuclearHit", 700, 1, 1, new Element[] {Element.Fire_Electric}));
+        skills.add(new Skill("Wave", 500, 1, 1, new Element[] {Element.Water}));
+        skills.add(new Skill("Tsunami", 600, 1, 1, new Element[] {Element.Water_Ground}));
+        skills.add(new Skill("Storm", 700, 1, 1, new Element[] {Element.Water}));
+        skills.add(new Skill("FrostNova", 500, 1, 1, new Element[] {Element.Ice}));
+        skills.add(new Skill("CryogenicFreeze", 600, 1, 1, new Element[] {Element.Ice}));
+        skills.add(new Skill("IceSpikes", 700, 1, 1, new Element[] {Element.Water_Ice}));
+        skills.add(new Skill("Earthquake", 500, 1, 1, new Element[] {Element.Ground}));
+        skills.add(new Skill("MeteorStrike", 600, 1, 1, new Element[] {Element.Ground}));
+        skills.add(new Skill("Asteroid", 700, 1, 1, new Element[] {Element.Ground}));
+        skills.add(new Skill("Lightning", 500, 1, 1, new Element[] {Element.Electric}));
+        skills.add(new Skill("ElectroBall", 600, 1, 1, new Element[] {Element.Fire_Electric}));
+        skills.add(new Skill("TeslaRay", 700, 1, 1, new Element[] {Element.Electric}));
+    }
 
 }

@@ -1,1 +1,1 @@
-javac Main.java Engimon.java Inventory.java Player.java Skill.java Element.java Coordinate.java Organism.java Map.java Direction.java ThreadEngimonWild.java
+javac Coordinate.java CoordinateEngimonIsNotInAreaException.java CoordinateMapOutOFBoundException.java Direction.java Element.java Engimon.java EngimonPlayer.java EngimonWild.java Inventory.java InventoryUtility.java InventoryParent.java Main.java Map.java Organism.java Player.java Skill.java ThreadEngimonWild.java 

@@ -82,6 +82,9 @@ public class ThreadEngimonWild extends Thread {
                         }
                         map.updateMap(xEngimonOld, yEngimonOld);;
                         map.updateEngimonWildMap(eWild);
+                        if (eWild.cumExp == 3000) {
+                            eWilds.remove(eWild);
+                        }
                         // Level up
                         if (eWild.isLevelUp()) eWild.levelUp();
                     } catch (CoordinateMapOutOFBoundException e) {

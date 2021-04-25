@@ -1,19 +1,20 @@
 import java.util.ArrayList;
+
 public class EngimonPlayer extends Engimon implements InventoryParent {
     Player plyr;
     Direction direction;
     boolean active;
 
-    public EngimonPlayer(String name, Coordinate bound, Player plyr) {
-        this(name, bound, false, plyr);
+    public EngimonPlayer(String name, Element element, Coordinate bound, Player plyr) {
+        this(name, element, bound, false, plyr);
     }
     
-    public EngimonPlayer(String name, Coordinate bound, boolean active, Player plyr) {
+    public EngimonPlayer(String name, Element element, Coordinate bound, boolean active, Player plyr) {
         super(name, new ArrayList<Skill>(), bound, 3);
         this.active = active;
         this.level = 0;
         this.species = "";
-        this.element = Element.Ground;
+        this.element = element;
         
         this.plyr = plyr;
         try {
@@ -29,10 +30,10 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
     public boolean isSkillFull() { return this.skills.size() >= 4; }
 
     public void showSkills() {
-        int i = 0;
+        int i = 1;
         for (Skill skill : skills) {
             System.out.println("Skill " + i++);
-            System.out.println("Skill: " + skill.skill);
+            System.out.println("Name: " + skill.skill);
             System.out.println("Base Power: " + skill.basePower);
             System.out.println("Mastery Level: " + skill.masteryLevel);
             System.out.println();

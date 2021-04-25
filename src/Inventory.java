@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Inventory<T extends InventoryParent> {
     private ArrayList<T> invent;
-    static private int countItem;
-    static private int max = 5;
+    static private int countItem = 0;
+    static private int max = 12;
 
     public Inventory() {
         invent = new ArrayList<>();
@@ -46,7 +46,7 @@ public class Inventory<T extends InventoryParent> {
     public static void reduceCountItem() { countItem++; }
 
     public boolean isFull(){
-        return getCountItem() == maxCap();
+        return getCountItem() >= maxCap();
     }
 };
 

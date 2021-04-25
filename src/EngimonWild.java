@@ -7,6 +7,7 @@ public class EngimonWild extends Engimon {
         // species random
         Random rand = new Random();
         this.level = rand.nextInt(30);
+        this.cumExp = this.level*100;
         do {
             this.element = Element.values()[rand.nextInt(8)];
             try {

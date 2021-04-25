@@ -19,12 +19,10 @@ public class Player extends Organism {
         if (Inventory.getCountItem() <= 0) engimonPlayerActive = ePlayer;
         ePlayer.active = true;
         engimons.addEngimonPlayer(ePlayer);
-        Inventory.addCountItem();
     }
     
     public void addSkill(Skill skill) {
         skills.addSkill(skill);
-        Inventory.addCountItem();
     }
 
     public void changeEngimonActive(int idx) {

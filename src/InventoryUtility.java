@@ -20,6 +20,12 @@ public class InventoryUtility {
             System.out.println("Life: " + ePlayer.getLife());
             System.out.println("Level: " + ePlayer.getLevel());
             System.out.println("Active: " + ePlayer.getActive());
+            System.out.println("Skill: ");
+            if (ePlayer.getSkills().size() > 0)
+                ePlayer.showSkills();
+            else 
+                System.out.println("Skill empty");
+            System.out.println();
             System.out.println();
         }
     }
