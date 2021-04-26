@@ -144,16 +144,19 @@ public class Main {
                                             && minusCo.getY() == eWildPossibleCo[i].getY()) {
                                         System.out.println("Fight!!");
                                         boolean fight = plyr.fight(engimonWild);
-
-                                        if (fight) { // win fight
-                                            ePlayer = new EngimonPlayer(engimonWild.getName(), engimonWild.getElement(),
-                                                    mapBound, false, plyr);
-                                            plyr.addEngimonPlayer(ePlayer);
-                                            ePlayer.getSkills().add(engimonWild.getSkills().get(0));
-                                            eWilds.remove(engimonWild);
-                                            // plyr.getInventorySkill().add.(engimonWild.getSkills().get(0));
-                                        } else {
-                                            plyr.getActiveEngimonPlayer().decrease1Life();
+                                        try {
+                                            if (fight) { // win fight
+                                                ePlayer = new EngimonPlayer(engimonWild.getName(),
+                                                        engimonWild.getElement(), mapBound, false, plyr);
+                                                plyr.addEngimonPlayer(ePlayer);
+                                                // ePlayer.getSkills().add(engimonWild.getSkills().get(0));
+                                                // eWilds.remove(engimonWild);
+                                                // plyr.getInventorySkill().add.(engimonWild.getSkills().get(0));
+                                            } else {
+                                                plyr.getActiveEngimonPlayer().decrease1Life();
+                                            }
+                                        } catch (Exception e) {
+                                            System.out.println("error fight");
                                         }
 
                                         if (plyr.getActiveEngimonPlayer().getLife() <= 0) {
