@@ -49,6 +49,10 @@ public abstract class Engimon extends Organism {
         return this.life;
     }
 
+    public void decrease1Life() {
+        this.life -= 1;
+    }
+
     public int sumTotalSkillPower() {
         int sumPower = 0;
         for (Skill skill : skills) {

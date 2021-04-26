@@ -142,12 +142,25 @@ public class Main {
                                     Coordinate minusCo = plyr.minusCo(engimonWild);
                                     if (minusCo.getX() == eWildPossibleCo[i].getX()
                                             && minusCo.getY() == eWildPossibleCo[i].getY()) {
-                                        plyr.fight(engimonWild);
                                         System.out.println("Fight!!");
+                                        boolean fight = plyr.fight(engimonWild);
+
+                                        if (fight) { // win fight
+                                            ePlayer = new EngimonPlayer(engimonWild.getName(), engimonWild.getElement(),
+                                                    mapBound, false, plyr);
+                                            plyr.addEngimonPlayer(ePlayer);
+                                            ePlayer.getSkills().add(engimonWild.getSkills().get(0));
+                                            eWilds.remove(engimonWild);
+                                            // plyr.getInventorySkill().add.(engimonWild.getSkills().get(0));
+                                        } else {
+                                            plyr.getActiveEngimonPlayer().decrease1Life();
+                                        }
+
                                         if (plyr.getActiveEngimonPlayer().getLife() <= 0) {
                                             plyr.removeEngimon(plyr.getActiveEngimonPlayer());
                                             plyr.changeEngimonActive(0);
                                         }
+
                                     }
                                 }
                             } else {
@@ -320,21 +333,27 @@ public class Main {
                 Element.Electric, Element.Ground, Element.Fire_Electric, Element.Water_Ice, Element.Water_Ground }));
         skills.add(new Skill("JudoKick", 400, 1, 1, new Element[] { Element.Fire, Element.Ice, Element.Water,
                 Element.Electric, Element.Ground, Element.Fire_Electric, Element.Water_Ice, Element.Water_Ground }));
-        skills.add(new Skill("Fireball", 500, 1, 2, new Element[] {Element.Fire, Element.Fire_Electric}));
-        skills.add(new Skill("Flamethrower", 600, 1, 2, new Element[] {Element.Fire, Element.Fire_Electric}));
-        skills.add(new Skill("NuclearHit", 700, 1, 3, new Element[] {Element.Fire_Electric, Element.Fire, Element.Electric}));
-        skills.add(new Skill("Wave", 500, 1, 3, new Element[] {Element.Water, Element.Water_Ground, Element.Water_Ice}));
-        skills.add(new Skill("Tsunami", 600, 1, 4, new Element[] {Element.Water_Ground, Element.Water, Element.Ground, Element.Water_Ice}));
-        skills.add(new Skill("Storm", 700, 1, 4, new Element[] {Element.Water, Element.Electric, Element.Water_Ground, Element.Water_Ice}));
-        skills.add(new Skill("FrostNova", 500, 1, 2, new Element[] {Element.Ice, Element.Water_Ice}));
-        skills.add(new Skill("CryogenicFreeze", 600, 1, 2, new Element[] {Element.Ice, Element.Water_Ice}));
-        skills.add(new Skill("IceSpikes", 700, 1, 3, new Element[] {Element.Water_Ice, Element.Water, Element.Ice}));
-        skills.add(new Skill("Earthquake", 500, 1, 2, new Element[] {Element.Ground, Element.Water_Ground}));
-        skills.add(new Skill("MeteorStrike", 600, 1, 3, new Element[] {Element.Ground, Element.Fire, Element.Water_Ground}));
-        skills.add(new Skill("Asteroid", 700, 1, 2, new Element[] {Element.Ground, Element.Water_Ground}));
-        skills.add(new Skill("Lightning", 500, 1, 2, new Element[] {Element.Electric, Element.Fire_Electric}));
-        skills.add(new Skill("ElectroBall", 600, 1, 3, new Element[] {Element.Fire_Electric, Element.Fire, Element.Electric}));
-        skills.add(new Skill("TeslaRay", 700, 1, 2, new Element[] {Element.Electric, Element.Fire_Electric}));
+        skills.add(new Skill("Fireball", 500, 1, 2, new Element[] { Element.Fire, Element.Fire_Electric }));
+        skills.add(new Skill("Flamethrower", 600, 1, 2, new Element[] { Element.Fire, Element.Fire_Electric }));
+        skills.add(new Skill("NuclearHit", 700, 1, 3,
+                new Element[] { Element.Fire_Electric, Element.Fire, Element.Electric }));
+        skills.add(
+                new Skill("Wave", 500, 1, 3, new Element[] { Element.Water, Element.Water_Ground, Element.Water_Ice }));
+        skills.add(new Skill("Tsunami", 600, 1, 4,
+                new Element[] { Element.Water_Ground, Element.Water, Element.Ground, Element.Water_Ice }));
+        skills.add(new Skill("Storm", 700, 1, 4,
+                new Element[] { Element.Water, Element.Electric, Element.Water_Ground, Element.Water_Ice }));
+        skills.add(new Skill("FrostNova", 500, 1, 2, new Element[] { Element.Ice, Element.Water_Ice }));
+        skills.add(new Skill("CryogenicFreeze", 600, 1, 2, new Element[] { Element.Ice, Element.Water_Ice }));
+        skills.add(new Skill("IceSpikes", 700, 1, 3, new Element[] { Element.Water_Ice, Element.Water, Element.Ice }));
+        skills.add(new Skill("Earthquake", 500, 1, 2, new Element[] { Element.Ground, Element.Water_Ground }));
+        skills.add(new Skill("MeteorStrike", 600, 1, 3,
+                new Element[] { Element.Ground, Element.Fire, Element.Water_Ground }));
+        skills.add(new Skill("Asteroid", 700, 1, 2, new Element[] { Element.Ground, Element.Water_Ground }));
+        skills.add(new Skill("Lightning", 500, 1, 2, new Element[] { Element.Electric, Element.Fire_Electric }));
+        skills.add(new Skill("ElectroBall", 600, 1, 3,
+                new Element[] { Element.Fire_Electric, Element.Fire, Element.Electric }));
+        skills.add(new Skill("TeslaRay", 700, 1, 2, new Element[] { Element.Electric, Element.Fire_Electric }));
     }
 
 }

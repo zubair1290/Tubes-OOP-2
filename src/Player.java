@@ -166,7 +166,9 @@ public class Player extends Organism {
                 for (Engimon en : this.engimons.get()) {
                     System.out.println(this.engimons.get().indexOf(en) + ". " + en.getSpecies());
                 }
+                System.out.println("Choose Number Parent A :");
                 int inEngParentA = scan.nextInt();
+                System.out.println("Choose Number Parent B :");
                 int inEngParentB = scan.nextInt();
                 tryBreed(this.engimons.get().get(inEngParentA), this.engimons.get().get(inEngParentB));
             } catch (Exception e) {
@@ -179,8 +181,7 @@ public class Player extends Organism {
     }
 
     public void tryBreed(EngimonPlayer engParentA, EngimonPlayer engParentB) {
-        // EngimonPlayer engParentA;
-        // EngimonPlayer engParentB;
+
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         try {
             if (engParentA.getLevel() >= 4 && engParentB.getLevel() >= 4) {
@@ -199,8 +200,13 @@ public class Player extends Organism {
                 System.out.println("Engimon child name is: " + nameChild); // Output user input
                 // Create child
                 if (elementChild != null && speciesChild != null && nameChild != null) {
-                    // this.engimons.invent.add(new EngimonPlayer(this.bound,this));
-                    this.addEngimonPlayer(new EngimonPlayer(nameChild, elementChild, this.getBound(), false, this));
+
+                    EngimonPlayer engimonChild = new EngimonPlayer(nameChild, elementChild, this.getBound(), false,
+                            this);
+                    this.addEngimonPlayer(engimonChild);
+                    for (Skill s : listSkillChild) {
+                        engimonChild.addSkill(s);
+                    }
                 }
 
                 // Decrease parent level
@@ -283,6 +289,7 @@ public class Player extends Organism {
             boolean fromparentA = true; // is true if from parent A
 
             int counter = 0;
+            boolean exist = false;
             // iterasi parent A for skill compatible with element child
             // until found compatible skill or until >parent A skill size
             while (!isSkillCompatibleElement(skillChild, elementChild) && listSkillEngParentA.size() > counter) {
@@ -363,9 +370,18 @@ public class Player extends Organism {
                         }
                     }
                 }
-                listSkillChild.add(skillChild);
+
+                for (Skill o : listSkillChild) {
+                    if (o.getSkill() == skillChild.getSkill()) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    listSkillChild.add(skillChild);
+                }
                 counter++;
             }
+
         } catch (Exception e) {
             System.out.println("Error getlistskillchild()");
         }
@@ -388,7 +404,9 @@ public class Player extends Organism {
             Element elementEngParentA = engParentA.getElement();
             Element elementEngParentB = engParentB.getElement();
             // get species child & element child
-            int randomhalf = 1;// std::rand() %2 ;
+            Random rand = new Random();
+
+            int randomhalf = rand.nextInt(2);
             boolean isParentADual = false;
             boolean isParentBDual = false;
 
@@ -425,7 +443,8 @@ public class Player extends Organism {
                             // if fire_electric , species child is parent with fire_electric element
                             // if water_ground, species child is parent with water_ground element
                             // if water_ice, species child is parent with water_ice element
-                            int randomsix = 1;// std::rand() % 6;
+                            int randomsix = rand.nextInt(6);
+                            ;// std::rand() % 6;
                             switch (randomsix) {
                             case 0:
                                 getElement = Element.Fire;
