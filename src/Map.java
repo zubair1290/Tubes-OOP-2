@@ -22,19 +22,19 @@ public class Map {
             br.close();
 
             map_display = new StringBuilder[30];
-            for (int i=0; i < map.length; i++) {
+            for (int i = 0; i < map.length; i++) {
                 map_display[i] = new StringBuilder(map[i]);
             }
-            
+
             int x = 0;
-            for (int i=map[1].length()-1; i >= 0; i--) {
+            for (int i = map[1].length() - 1; i >= 0; i--) {
                 if (map[1].charAt(i) == 'o' || map[1].charAt(i) == '-') {
-                    x = i/2;
+                    x = i / 2;
                     break;
                 }
             }
-            bound = new Coordinate(x, map.length-2);
-            System.out.println("Coordinate: "+bound.getX() + ','+ bound.getY());
+            bound = new Coordinate(x, map.length - 2);
+            System.out.println("Coordinate: " + bound.getX() + ',' + bound.getY());
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -60,37 +60,37 @@ public class Map {
         int x = engimon.getX(), y = engimon.getY();
         char ch = 0;
         switch (engimon.getElement()) {
-            case Water:
-                ch = 'W';
-                break;
-            case Ice:
-                ch = 'I';
-                break;
-            case Fire:
-                ch = 'F';
-                break;
-            case Ground:
-                ch = 'G';
-                break;
-            case Electric:
-                ch = 'E';
-                break;
-            case Fire_Electric:
-                ch = 'L';
-                break;
-            case Water_Ice:
-                ch = 'S';
-                break;
-            case Water_Ground:
-                ch = 'N';
-                break;
+        case Water:
+            ch = 'W';
+            break;
+        case Ice:
+            ch = 'I';
+            break;
+        case Fire:
+            ch = 'F';
+            break;
+        case Ground:
+            ch = 'G';
+            break;
+        case Electric:
+            ch = 'E';
+            break;
+        case Fire_Electric:
+            ch = 'L';
+            break;
+        case Water_Ice:
+            ch = 'S';
+            break;
+        case Water_Ground:
+            ch = 'N';
+            break;
         }
         if (engimon.getLevel() < 20) {
-            ch += -'A'+'a';
+            ch += -'A' + 'a';
         }
         this.set(x, y, ch);
     }
-    
+
     public void updateEngimonActivePlayerMap(int x, int y) {
         this.set(x, y, 'x');
     }
@@ -102,15 +102,11 @@ public class Map {
     }
 
     public void set(int x, int y, char ch) {
-        map_display[y].setCharAt(x*2, ch);
+        map_display[y].setCharAt(x * 2, ch);
     }
 
     public char get(int x, int y) {
-        return map[y].charAt(x*2);
+        return map[y].charAt(x * 2);
     }
 
-
-
-
-    
 }

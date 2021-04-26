@@ -1,21 +1,22 @@
 import java.util.ArrayList;
 
 public class EngimonPlayer extends Engimon implements InventoryParent {
-    Player plyr;
-    Direction direction;
-    boolean active;
+    private Player plyr;
+    private Direction direction;
+    private boolean active;
 
     public EngimonPlayer(String name, Element element, Coordinate bound, Player plyr) {
         this(name, element, bound, false, plyr);
+        this.species = randomSpecies(this.element);
     }
 
     public EngimonPlayer(String name, Element element, Coordinate bound, boolean active, Player plyr) {
         super(name, new ArrayList<Skill>(), bound, 3);
         this.active = active;
         this.level = 0;
-        this.species = "";
-        this.element = element;
 
+        this.element = element;
+        this.species = randomSpecies(this.element);
         this.plyr = plyr;
         try {
             this.setCo(this.plyr.getX() - 1, this.plyr.getY());
@@ -23,6 +24,14 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
             e.printStackTrace();
         }
         this.direction = Direction.right;
+    }
+
+    public void setActive() {
+        active = true;
+    }
+
+    public void setDeactive() {
+        active = false;
     }
 
     public boolean getActive() {

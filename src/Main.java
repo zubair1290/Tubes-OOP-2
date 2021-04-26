@@ -126,6 +126,20 @@ public class Main {
                                 } else {
                                     System.out.println("Engimon Wild is below");
                                 }
+                                System.out.println("Engimon Wild details :");
+                                System.out.println("Name :" + eWild.getName());
+                                System.out.println("Species :" + eWild.getSpecies());
+                                System.out.println("Level :" + eWild.getLevel());
+                                System.out.println("Element :" + eWild.getElement());
+                                System.out.println("SumTotalSkillPower :" + eWild.sumTotalSkillPower());
+                                System.out.println();
+                                System.out.println("Engimon Active details :");
+                                System.out.println("Name :" + plyr.getActiveEngimonPlayer().getName());
+                                System.out.println("Species :" + plyr.getActiveEngimonPlayer().getSpecies());
+                                System.out.println("Level :" + plyr.getActiveEngimonPlayer().getLevel());
+                                System.out.println("Element :" + plyr.getActiveEngimonPlayer().getElement());
+                                System.out.println(
+                                        "SumTotalSkillPower :" + plyr.getActiveEngimonPlayer().sumTotalSkillPower());
                                 break;
                             }
                         }
@@ -146,12 +160,29 @@ public class Main {
                                         boolean fight = plyr.fight(engimonWild);
                                         try {
                                             if (fight) { // win fight
+                                                // add new engimon player
                                                 ePlayer = new EngimonPlayer(engimonWild.getName(),
                                                         engimonWild.getElement(), mapBound, false, plyr);
                                                 plyr.addEngimonPlayer(ePlayer);
                                                 // ePlayer.getSkills().add(engimonWild.getSkills().get(0));
-                                                // eWilds.remove(engimonWild);
                                                 // plyr.getInventorySkill().add.(engimonWild.getSkills().get(0));
+                                                ePlayer.addSkill(engimonWild.getSkills().get(0));
+                                                plyr.addSkill(engimonWild.getSkills().get(0));
+
+                                                // remove engimon wild
+                                                map.updateMap(engimonWild.getX(), engimonWild.getY());
+                                                eWilds.remove(engimonWild);
+
+                                                // exp up
+                                                plyr.getActiveEngimonPlayer().expUp();
+                                                if (plyr.getActiveEngimonPlayer().isLevelUp()) {
+                                                    plyr.getActiveEngimonPlayer().levelUp();
+                                                }
+                                                // skill mastery level up
+                                                for (Skill s : plyr.getActiveEngimonPlayer().getSkills())
+                                                    if (s.getMasteryLevel() < 3) {
+                                                        s.setSkillLevel(1 + s.getMasteryLevel());
+                                                    }
                                             } else {
                                                 plyr.getActiveEngimonPlayer().decrease1Life();
                                             }
@@ -179,9 +210,11 @@ public class Main {
                         System.out.println(eWildBoolPos[i]);
                     }
                     myEngimonWildThread.interrupt();
+                    sc.nextLine();
                 } else {
                     System.out.println("There is not any engimon wild to battle!");
                 }
+                sc.nextLine();
             } else if (command.equals("learn")) {
                 int c = 0;
                 for (Skill skill : skills) {
@@ -221,6 +254,10 @@ public class Main {
                 System.out.println("view engimon player: View All Engimon Player");
                 System.out.println("view engimon liar: View All Engimon Liar");
                 sc.nextLine();
+            } else if (command.equals("view inventory skill")) {
+                System.out.println("Skill in inventory: ");
+                plyr.showInventorySkill();
+                sc.nextLine();
             } else if (command.equals("switch active engimon")) {
                 int idx = sc.nextInt();
                 plyr.viewAllEngimon();
@@ -237,7 +274,7 @@ public class Main {
                 System.out.println("Active: " + plyr.getActiveEngimonPlayer().getActive());
                 System.out.print("Skill: ");
                 int c = 0;
-                for (Skill skill : plyr.getActiveEngimonPlayer().getSkills()) {
+                for (Skill skill : plyr.getInventorySkill().get()) {
                     System.out.println("No. " + c++);
                     System.out.println("Skill: " + skill.getSkill());
                     System.out.println("Base Power: " + skill.getPower());

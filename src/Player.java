@@ -19,6 +19,17 @@ public class Player extends Organism {
         return this.skills;
     }
 
+    public void showInventorySkill() {
+        int i = 0;
+        for (Skill skill : skills.get()) {
+            System.out.println("Skill " + i++);
+            System.out.println("Name: " + skill.skill);
+            System.out.println("Base Power: " + skill.basePower);
+            System.out.println("Mastery Level: " + skill.masteryLevel);
+            System.out.println();
+        }
+    }
+
     public Inventory<EngimonPlayer> getInventoryEngimon() {
         return this.engimons;
     }
@@ -38,7 +49,7 @@ public class Player extends Organism {
     public void addEngimonPlayer(EngimonPlayer ePlayer) {
         if (Inventory.getCountItem() <= 0)
             engimonPlayerActive = ePlayer;
-        ePlayer.active = true;
+        ePlayer.setActive();
         engimons.addEngimonPlayer(ePlayer);
     }
 
@@ -164,7 +175,7 @@ public class Player extends Organism {
             try {
                 System.out.println("Choose 2 engimon :");
                 for (Engimon en : this.engimons.get()) {
-                    System.out.println(this.engimons.get().indexOf(en) + ". " + en.getSpecies());
+                    System.out.println(this.engimons.get().indexOf(en) + ". " + en.getName());
                 }
                 System.out.println("Choose Number Parent A :");
                 int inEngParentA = scan.nextInt();
@@ -180,7 +191,7 @@ public class Player extends Organism {
         // scan.close();
     }
 
-    public void tryBreed(EngimonPlayer engParentA, EngimonPlayer engParentB) {
+    private void tryBreed(EngimonPlayer engParentA, EngimonPlayer engParentB) {
 
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         try {
@@ -188,7 +199,6 @@ public class Player extends Organism {
 
                 // Get Element and species from parents
                 Element elementChild = getElementChild(engParentA, engParentB);
-                String speciesChild = getSpeciesChild(engParentA, engParentB, elementChild);
 
                 // Get skills from parents
                 ArrayList<Skill> listSkillChild = new ArrayList<Skill>(4);
@@ -199,7 +209,7 @@ public class Player extends Organism {
                 String nameChild = scan.nextLine(); // Read user input
                 System.out.println("Engimon child name is: " + nameChild); // Output user input
                 // Create child
-                if (elementChild != null && speciesChild != null && nameChild != null) {
+                if (elementChild != null && nameChild != null) {
 
                     EngimonPlayer engimonChild = new EngimonPlayer(nameChild, elementChild, this.getBound(), false,
                             this);
@@ -207,6 +217,10 @@ public class Player extends Organism {
                     for (Skill s : listSkillChild) {
                         engimonChild.addSkill(s);
                     }
+                    String speciesChild = getSpeciesChild(engParentA, engParentB, engimonChild);
+                    engimonChild.setSpecies(speciesChild);
+                    engimonChild.setParentABNameSpecies(engParentA.getName(), engParentA.getSpecies(),
+                            engParentB.getName(), engParentB.getSpecies());
                 }
 
                 // Decrease parent level
@@ -223,15 +237,15 @@ public class Player extends Organism {
         // scan.close();
     }
 
-    private String getSpeciesChild(EngimonPlayer engParentA, EngimonPlayer engParentB, Element elementChild) {
+    private String getSpeciesChild(EngimonPlayer engParentA, EngimonPlayer engParentB, EngimonPlayer engimonChild) {
         String speciesChild = "";
         try {
-            if (elementChild == engParentA.getElement()) {
+            if (engimonChild.getElement() == engParentA.getElement()) {
                 speciesChild = engParentA.getSpecies();
-            } else if (elementChild == engParentB.getElement()) {
+            } else if (engimonChild.getElement() == engParentB.getElement()) {
                 speciesChild = engParentB.getSpecies();
             } else {
-                speciesChild = randomSpecies(elementChild);
+                speciesChild = engimonChild.randomSpecies(engimonChild.getElement());
             }
 
         } catch (Exception e) {
@@ -268,13 +282,13 @@ public class Player extends Organism {
         return species;
     }
 
-    public void setBreedLevel() {
+    private void setBreedLevel() {
         for (Engimon en : this.engimons.get()) {
             en.setLevel(5);
         }
     }
 
-    public void getListSkillChild(EngimonPlayer engParentA, EngimonPlayer engParentB, Element elementChild,
+    private void getListSkillChild(EngimonPlayer engParentA, EngimonPlayer engParentB, Element elementChild,
             ArrayList<Skill> listSkillChild) {
         try {
             ArrayList<Skill> listSkillEngParentA = engParentA.getSkills();
@@ -306,6 +320,26 @@ public class Player extends Organism {
                     fromparentA = false;
                 }
                 counter++;
+            }
+            // skills from parent A & B is not compatible with child element
+            // create random skill
+            if (!isSkillCompatibleElement(skillChild, elementChild)) {
+                StringBuilder skillName = new StringBuilder();
+                Random rand = new Random();
+                for (int i = 0; i < 10; i++) {
+                    int upperOrLowerCase = rand.nextInt(2);
+                    if (upperOrLowerCase == 0) {
+                        skillName.append((char) ('A' + rand.nextInt(26)));
+                    } else {
+                        skillName.append((char) ('a' + rand.nextInt(26)));
+                    }
+                }
+                int basePower = rand.nextInt(9);
+                basePower *= 100;
+                int basePowerPuluhan = rand.nextInt(100);
+                basePower += basePowerPuluhan;
+                skillChild = new Skill(skillName.toString(), basePower, 1, 1, new Element[] { elementChild });
+
             }
 
             counter = 0;
@@ -344,7 +378,9 @@ public class Player extends Organism {
 
                             // if mastery level A = mastery level B
                             if (skillChild.getMasteryLevel() == listSkillEngParentB.get(j).getMasteryLevel()) {
-                                skillChild.setSkillLevel(skillChild.getMasteryLevel() + 1);
+                                if (skillChild.getMasteryLevel() < 3) {
+                                    skillChild.setSkillLevel(skillChild.getMasteryLevel() + 1);
+                                }
                             }
                             // if mastery level A < mastery level B
                             if (skillChild.getMasteryLevel() < listSkillEngParentB.get(j).getMasteryLevel()) {
@@ -545,7 +581,7 @@ public class Player extends Organism {
         return getElement;
     }
 
-    public double compareElement(Element a, Element b) { // b = target
+    private double compareElement(Element a, Element b) { // b = target
         double mult = 0;
         try {
             switch (a) {

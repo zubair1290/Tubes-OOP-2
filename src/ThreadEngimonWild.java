@@ -26,21 +26,21 @@ public class ThreadEngimonWild extends Thread {
 
         do {
             LocalTime time2 = LocalTime.now();
-            if (isHasSpawn && time2.getSecond() % 20 == remainderSpawn+1) {
+            if (isHasSpawn && time2.getSecond() % 20 == remainderSpawn + 1) {
                 isHasSpawn = false;
             }
-            if (isHasMove && time2.getSecond() % 5 == remainderMove+1) {
+            if (isHasMove && time2.getSecond() % 5 == remainderMove + 1) {
                 isHasMove = false;
             }
             // setiap 20 detik spawn engimon wild
             if (time2.getSecond() % 20 == remainderSpawn && !isHasSpawn) {
                 StringBuilder name = new StringBuilder();
-                for (int i=0; i < 10; i++) {
+                for (int i = 0; i < 10; i++) {
                     int upperOrLowerCase = rand.nextInt(2);
                     if (upperOrLowerCase == 0) {
-                        name.append((char) ('A'+rand.nextInt(26)));
+                        name.append((char) ('A' + rand.nextInt(26)));
                     } else {
-                        name.append((char) ('a'+rand.nextInt(26)));
+                        name.append((char) ('a' + rand.nextInt(26)));
                     }
                 }
                 this.eWilds.add(new EngimonWild(name.toString(), this.bound));
@@ -50,7 +50,7 @@ public class ThreadEngimonWild extends Thread {
                 try {
                     sleep(20000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    // e.printStackTrace();
                 } finally {
                     System.out.println("Engimon Start Move");
                     command = "";
@@ -80,13 +80,15 @@ public class ThreadEngimonWild extends Thread {
                             eWild.expUp();
                             // System.out.println("move up");
                         }
-                        map.updateMap(xEngimonOld, yEngimonOld);;
+                        map.updateMap(xEngimonOld, yEngimonOld);
+                        ;
                         map.updateEngimonWildMap(eWild);
                         if (eWild.cumExp == 3000) {
                             eWilds.remove(eWild);
                         }
                         // Level up
-                        if (eWild.isLevelUp()) eWild.levelUp();
+                        if (eWild.isLevelUp())
+                            eWild.levelUp();
                     } catch (CoordinateMapOutOFBoundException e) {
                         // e.printStackTrace();
                     } catch (CoordinateEngimonIsNotInAreaException e) {

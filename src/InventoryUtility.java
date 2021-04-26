@@ -2,12 +2,12 @@
 public class InventoryUtility {
     public static EngimonPlayer setActive(Inventory<EngimonPlayer> engimons, int idx) {
         EngimonPlayer ePlayer = engimons.get().get(idx);
-        ePlayer.active = true;
+        ePlayer.setActive();
         return ePlayer;
     }
 
     public static void setDeactive(EngimonPlayer ePlayer) {
-        ePlayer.active = false;
+        ePlayer.setDeactive();
     }
 
     public static void removeEngimonPlayer(Inventory<EngimonPlayer> engimons, EngimonPlayer ePlayer) {
@@ -19,6 +19,7 @@ public class InventoryUtility {
             System.out.println("Name: " + ePlayer.getName());
             System.out.println("Coordinate: " + "(" + ePlayer.getX() + "," + ePlayer.getY() + ")");
             System.out.println("Species: " + ePlayer.getSpecies());
+            ePlayer.printlnParentABNameSpecies();
             System.out.print("Element: ");
             System.out.println(ePlayer.getElement());
             System.out.println("Life: " + ePlayer.getLife());
