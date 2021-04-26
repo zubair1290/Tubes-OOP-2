@@ -10,6 +10,10 @@ public class InventoryUtility {
         ePlayer.active = false;
     }
 
+    public static void removeEngimonPlayer(Inventory<EngimonPlayer> engimons, EngimonPlayer ePlayer) {
+        engimons.get().remove(ePlayer);
+    }
+
     public static void viewAll(Inventory<EngimonPlayer> engimons) {
         for (EngimonPlayer ePlayer : engimons.get()) {
             System.out.println("Name: " + ePlayer.getName());
@@ -23,7 +27,7 @@ public class InventoryUtility {
             System.out.println("Skill: ");
             if (ePlayer.getSkills().size() > 0)
                 ePlayer.showSkills();
-            else 
+            else
                 System.out.println("Skill empty");
             System.out.println();
             System.out.println();

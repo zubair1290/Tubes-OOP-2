@@ -8,26 +8,34 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
     public EngimonPlayer(String name, Element element, Coordinate bound, Player plyr) {
         this(name, element, bound, false, plyr);
     }
-    
+
     public EngimonPlayer(String name, Element element, Coordinate bound, boolean active, Player plyr) {
         super(name, new ArrayList<Skill>(), bound, 3);
         this.active = active;
         this.level = 0;
         this.species = "";
         this.element = element;
-        
+
         this.plyr = plyr;
         try {
-            this.setCo(this.plyr.getX()-1, this.plyr.getY());
+            this.setCo(this.plyr.getX() - 1, this.plyr.getY());
         } catch (CoordinateMapOutOFBoundException e) {
             e.printStackTrace();
         }
         this.direction = Direction.right;
     }
 
-    public boolean getActive() { return this.active; }
+    public boolean getActive() {
+        return this.active;
+    }
 
-    public boolean isSkillFull() { return this.skills.size() >= 4; }
+    public boolean isSkillFull() {
+        return this.skills.size() >= 4;
+    }
+
+    public void decreaseLevelByBreeding() {
+        this.level -= 3;
+    }
 
     public void showSkills() {
         int i = 1;
@@ -43,23 +51,23 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
     public void addSkill(Skill skill) {
         this.skills.add(skill);
     }
-    
+
     public void followPlayer() {
         if (this.getActive() == true) {
             try {
-                switch (direction){
-                    case up:
-                        this.MoveUp();
-                        break;
-                        case down:
-                        this.MoveDown();
-                        break;
-                    case left:
-                        this.MoveLeft();
-                        break;
-                    case right:
-                        this.MoveRight();
-                        break;
+                switch (direction) {
+                case up:
+                    this.MoveUp();
+                    break;
+                case down:
+                    this.MoveDown();
+                    break;
+                case left:
+                    this.MoveLeft();
+                    break;
+                case right:
+                    this.MoveRight();
+                    break;
                 }
                 int x_rel = this.plyr.getX() - this.getX();
                 if (x_rel == 1) {
@@ -74,7 +82,7 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
                     this.direction = Direction.up;
                 }
             } catch (CoordinateMapOutOFBoundException e) {
-                
+
             }
         }
     }
@@ -82,7 +90,7 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
     public void startFollowPlayer(int x, int y) {
         try {
             this.setCo(x, y);
-            
+
         } catch (CoordinateMapOutOFBoundException e) {
             e.printStackTrace();
         }
@@ -90,28 +98,31 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
 
     public void MoveUp() throws CoordinateMapOutOFBoundException {
         try {
-            setCo(this.getX(), this.getY()-1);
+            setCo(this.getX(), this.getY() - 1);
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
     }
+
     public void MoveDown() throws CoordinateMapOutOFBoundException {
         try {
-            setCo(this.getX(), this.getY()+1);
+            setCo(this.getX(), this.getY() + 1);
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
     }
+
     public void MoveLeft() throws CoordinateMapOutOFBoundException {
         try {
-            setCo(this.getX()-1, this.getY());
+            setCo(this.getX() - 1, this.getY());
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
     }
+
     public void MoveRight() throws CoordinateMapOutOFBoundException {
         try {
-            setCo(this.getX()+1, this.getY());
+            setCo(this.getX() + 1, this.getY());
         } catch (CoordinateMapOutOFBoundException e) {
             throw new CoordinateMapOutOFBoundException(this.getBound());
         }
