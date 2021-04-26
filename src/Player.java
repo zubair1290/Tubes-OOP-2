@@ -285,7 +285,7 @@ public class Player extends Organism {
             int counter = 0;
             // iterasi parent A for skill compatible with element child
             // until found compatible skill or until >parent A skill size
-            while (!isSkillCompatibleElement(skillChild, elementChild) || listSkillEngParentA.size() < counter) {
+            while (!isSkillCompatibleElement(skillChild, elementChild) && listSkillEngParentA.size() > counter) {
                 skillChild = listSkillEngParentA.get(counter);
                 counter++;
             }
@@ -293,7 +293,7 @@ public class Player extends Organism {
             counter = 0;
             // iterasi parent B for skill compatible with element
             // until found compatible skill or until >parent B skill size
-            while (!isSkillCompatibleElement(skillChild, elementChild) || listSkillEngParentB.size() < counter) {
+            while (!isSkillCompatibleElement(skillChild, elementChild) && listSkillEngParentB.size() > counter) {
                 skillChild = listSkillEngParentB.get(counter);
                 if (isSkillCompatibleElement(skillChild, elementChild)) {
                     fromparentA = false;
@@ -302,7 +302,7 @@ public class Player extends Organism {
             }
 
             counter = 0;
-            while (listSkillChild.size() < 4 || listSkillEngParentA.size() + listSkillEngParentB.size() < counter) {
+            while (listSkillChild.size() < 4 && listSkillEngParentA.size() + listSkillEngParentB.size() > counter) {
 
                 // Get skill with maximum mastery level
                 // iteration of list skill parent A
