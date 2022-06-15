@@ -4,6 +4,8 @@
 
 ## Deskripsi Singkat
 
+Setelah Engimon Factory berhasil dibuat oleh anda, Willy Wangky berpikir bahwa bahasa C++ terlalu mudah dan tidak mampu memadai cita rasa sang Willy Wangky. Dengan hati yang tersinggung, beliau ingin anda mengerjakan ulang tugas besar anda sekali lagi dalam bahasa Java.
+
 ## Compile
 
 ./compile.bat
