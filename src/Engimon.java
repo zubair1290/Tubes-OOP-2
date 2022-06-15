@@ -109,62 +109,62 @@ public abstract class Engimon extends Organism {
         int randomhalf = rand.nextInt(2);
         try {
             switch (randomhalf) {
-            case 0:
-                switch (el) {
-                case Fire:
-                    species = "Fire.One.Species";
+                case 0:
+                    switch (el) {
+                        case Fire:
+                            species = "Fire.One.Species";
+                            break;
+                        case Water:
+                            species = "Water.One.Species";
+                            break;
+                        case Electric:
+                            species = "Electric.One.Species";
+                            break;
+                        case Ground:
+                            species = "Ground.One.Species";
+                            break;
+                        case Ice:
+                            species = "Ice.One.Species";
+                            break;
+                        case Fire_Electric:
+                            species = "Fire_Electric.One.Species";
+                            break;
+                        case Water_Ice:
+                            species = "Water_Ice.One.Species";
+                            break;
+                        case Water_Ground:
+                            species = "Water_Ground.One.Species";
+                            break;
+                    }
                     break;
-                case Water:
-                    species = "Water.One.Species";
+                case 1:
+                    switch (el) {
+                        case Fire:
+                            species = "Fire.Two.Species";
+                            break;
+                        case Water:
+                            species = "Water.Two.Species";
+                            break;
+                        case Electric:
+                            species = "Electric.Two.Species";
+                            break;
+                        case Ground:
+                            species = "Ground.Two.Species";
+                            break;
+                        case Ice:
+                            species = "Ice.Two.Species";
+                            break;
+                        case Fire_Electric:
+                            species = "Fire_Electric.Two.Species";
+                            break;
+                        case Water_Ice:
+                            species = "Water_Ice.Two.Species";
+                            break;
+                        case Water_Ground:
+                            species = "Water_Ground.Two.Species";
+                            break;
+                    }
                     break;
-                case Electric:
-                    species = "Electric.One.Species";
-                    break;
-                case Ground:
-                    species = "Ground.One.Species";
-                    break;
-                case Ice:
-                    species = "Ice.One.Species";
-                    break;
-                case Fire_Electric:
-                    species = "Fire_Electric.One.Species";
-                    break;
-                case Water_Ice:
-                    species = "Water_Ice.One.Species";
-                    break;
-                case Water_Ground:
-                    species = "Water_Ground.One.Species";
-                    break;
-                }
-                break;
-            case 1:
-                switch (el) {
-                case Fire:
-                    species = "Fire.Two.Species";
-                    break;
-                case Water:
-                    species = "Water.Two.Species";
-                    break;
-                case Electric:
-                    species = "Electric.Two.Species";
-                    break;
-                case Ground:
-                    species = "Ground.Two.Species";
-                    break;
-                case Ice:
-                    species = "Ice.Two.Species";
-                    break;
-                case Fire_Electric:
-                    species = "Fire_Electric.Two.Species";
-                    break;
-                case Water_Ice:
-                    species = "Water_Ice.Two.Species";
-                    break;
-                case Water_Ground:
-                    species = "Water_Ground.Two.Species";
-                    break;
-                }
-                break;
 
             }
 

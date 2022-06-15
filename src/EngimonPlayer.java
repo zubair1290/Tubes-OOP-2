@@ -65,18 +65,18 @@ public class EngimonPlayer extends Engimon implements InventoryParent {
         if (this.getActive() == true) {
             try {
                 switch (direction) {
-                case up:
-                    this.MoveUp();
-                    break;
-                case down:
-                    this.MoveDown();
-                    break;
-                case left:
-                    this.MoveLeft();
-                    break;
-                case right:
-                    this.MoveRight();
-                    break;
+                    case up:
+                        this.MoveUp();
+                        break;
+                    case down:
+                        this.MoveDown();
+                        break;
+                    case left:
+                        this.MoveLeft();
+                        break;
+                    case right:
+                        this.MoveRight();
+                        break;
                 }
                 int x_rel = this.plyr.getX() - this.getX();
                 if (x_rel == 1) {

@@ -49,7 +49,7 @@ public class Player extends Organism {
     public void addEngimonPlayer(EngimonPlayer ePlayer) {
         if (Inventory.getCountItem() <= 0)
             engimonPlayerActive = ePlayer;
-        ePlayer.setActive();
+        // ePlayer.setActive();
         engimons.addEngimonPlayer(ePlayer);
     }
 
@@ -259,22 +259,22 @@ public class Player extends Organism {
         String species = "";
         try {
             switch (el) {
-            case Fire:
-                species = "Fire.Species";
-            case Water:
-                species = "Water.Species";
-            case Electric:
-                species = "Electric.Species";
-            case Ground:
-                species = "Ground.Species";
-            case Ice:
-                species = "Ice.Species";
-            case Fire_Electric:
-                species = "Fire_Electric.Species";
-            case Water_Ice:
-                species = "Water_Ice.Species";
-            case Water_Ground:
-                species = "Water_Ground.Species";
+                case Fire:
+                    species = "Fire.Species";
+                case Water:
+                    species = "Water.Species";
+                case Electric:
+                    species = "Electric.Species";
+                case Ground:
+                    species = "Ground.Species";
+                case Ice:
+                    species = "Ice.Species";
+                case Fire_Electric:
+                    species = "Fire_Electric.Species";
+                case Water_Ice:
+                    species = "Water_Ice.Species";
+                case Water_Ground:
+                    species = "Water_Ground.Species";
             }
         } catch (Exception e) {
             System.out.println("Error random species");
@@ -482,47 +482,47 @@ public class Player extends Organism {
                             int randomsix = rand.nextInt(6);
                             ;// std::rand() % 6;
                             switch (randomsix) {
-                            case 0:
-                                getElement = Element.Fire;
-                                break;
-                            case 1:
-                                getElement = Element.Electric;
-                                break;
-                            case 2:
-                                getElement = Element.Fire_Electric;
-                                break;
-                            case 3:
-                                getElement = Element.Water;
-                                break;
-                            case 4:
-                                if (elementEngParentA == Element.Water_Ground
-                                        || elementEngParentB == Element.Water_Ground) {
-                                    getElement = Element.Water_Ground;
-                                } else if (elementEngParentA == Element.Water_Ice
-                                        || elementEngParentB == Element.Water_Ice) {
-                                    getElement = Element.Water_Ice;
-                                }
-                                break;
-                            case 5:
-                                if (elementEngParentA == Element.Water_Ground
-                                        || elementEngParentB == Element.Water_Ground) {
-                                    getElement = Element.Ground;
-                                } else if (elementEngParentA == Element.Water_Ice
-                                        || elementEngParentB == Element.Water_Ice) {
-                                    getElement = Element.Ice;
-                                }
-                                break;
+                                case 0:
+                                    getElement = Element.Fire;
+                                    break;
+                                case 1:
+                                    getElement = Element.Electric;
+                                    break;
+                                case 2:
+                                    getElement = Element.Fire_Electric;
+                                    break;
+                                case 3:
+                                    getElement = Element.Water;
+                                    break;
+                                case 4:
+                                    if (elementEngParentA == Element.Water_Ground
+                                            || elementEngParentB == Element.Water_Ground) {
+                                        getElement = Element.Water_Ground;
+                                    } else if (elementEngParentA == Element.Water_Ice
+                                            || elementEngParentB == Element.Water_Ice) {
+                                        getElement = Element.Water_Ice;
+                                    }
+                                    break;
+                                case 5:
+                                    if (elementEngParentA == Element.Water_Ground
+                                            || elementEngParentB == Element.Water_Ground) {
+                                        getElement = Element.Ground;
+                                    } else if (elementEngParentA == Element.Water_Ice
+                                            || elementEngParentB == Element.Water_Ice) {
+                                        getElement = Element.Ice;
+                                    }
+                                    break;
                             }
 
                         } else {
                             // breed is single element x dual element
                             switch (randomhalf) {
-                            case 0:
-                                getElement = elementEngParentA;
-                                break;
-                            case 1:
-                                getElement = elementEngParentB;
-                                break;
+                                case 0:
+                                    getElement = elementEngParentA;
+                                    break;
+                                case 1:
+                                    getElement = elementEngParentB;
+                                    break;
                             }
                         }
                     } else {
@@ -533,43 +533,43 @@ public class Player extends Organism {
                         // child species get random with compatible dual element
                         // case Fire_electric, Water_ground, Water_Ice not needed
                         switch (elementEngParentA) {
-                        case Fire:
-                            if (elementEngParentB == Element.Electric) {
-                                getElement = Element.Fire_Electric;
-                            }
-                            break;
-                        case Water:
-                            if (elementEngParentB == Element.Ground) {
-                                getElement = Element.Water_Ground;
-                            } else {
-                                getElement = Element.Water_Ice;
-                            }
-                            break;
-                        case Electric:
-                            if (elementEngParentB == Element.Fire) {
-                                getElement = Element.Fire_Electric;
-                            }
-                            break;
-                        case Ground:
-                            if (elementEngParentB == Element.Water) {
-                                getElement = Element.Water_Ground;
-                            }
-                            break;
-                        case Ice:
-                            if (elementEngParentB == Element.Water) {
-                                getElement = Element.Water_Ice;
-                            }
-                            break;
-                        // case Fire_Electric:
-                        // getElement = Element.Fire_Electric;
-                        // break;
-                        // case Water_Ice:
-                        // getElement = Element.Water_Ice;
-                        // break;
-                        // case Water_Ground:
-                        // getElement = Element.Water_Ground;
-                        // break;
-                        //
+                            case Fire:
+                                if (elementEngParentB == Element.Electric) {
+                                    getElement = Element.Fire_Electric;
+                                }
+                                break;
+                            case Water:
+                                if (elementEngParentB == Element.Ground) {
+                                    getElement = Element.Water_Ground;
+                                } else {
+                                    getElement = Element.Water_Ice;
+                                }
+                                break;
+                            case Electric:
+                                if (elementEngParentB == Element.Fire) {
+                                    getElement = Element.Fire_Electric;
+                                }
+                                break;
+                            case Ground:
+                                if (elementEngParentB == Element.Water) {
+                                    getElement = Element.Water_Ground;
+                                }
+                                break;
+                            case Ice:
+                                if (elementEngParentB == Element.Water) {
+                                    getElement = Element.Water_Ice;
+                                }
+                                break;
+                            // case Fire_Electric:
+                            // getElement = Element.Fire_Electric;
+                            // break;
+                            // case Water_Ice:
+                            // getElement = Element.Water_Ice;
+                            // break;
+                            // case Water_Ground:
+                            // getElement = Element.Water_Ground;
+                            // break;
+                            //
                         }
 
                     }
@@ -585,230 +585,230 @@ public class Player extends Organism {
         double mult = 0;
         try {
             switch (a) {
-            case Fire:
-                switch (b) {
                 case Fire:
-                    mult = 1;
+                    switch (b) {
+                        case Fire:
+                            mult = 1;
+                            break;
+                        case Water:
+                            mult = 0;
+                            break;
+                        case Electric:
+                            mult = 1;
+                            break;
+                        case Ground:
+                            mult = 0.5;
+                            break;
+                        case Ice:
+                            mult = 2;
+                            break;
+                        case Fire_Electric:
+                            mult = 1;
+                            break;
+                        case Water_Ice:
+                            mult = 2;
+                            break;
+                        case Water_Ground:
+                            mult = 0.5;
+                            break;
+                    }
                     break;
                 case Water:
-                    mult = 0;
+                    switch (b) {
+                        case Fire:
+                            mult = 2;
+                            break;
+                        case Water:
+                            mult = 1;
+                            break;
+                        case Electric:
+                            mult = 0;
+                            break;
+                        case Ground:
+                            mult = 1;
+                            break;
+                        case Ice:
+                            mult = 1;
+                            break;
+                        case Fire_Electric:
+                            mult = 2;
+                            break;
+                        case Water_Ice:
+                            mult = 1;
+                            break;
+                        case Water_Ground:
+                            mult = 1;
+                            break;
+                    }
                     break;
                 case Electric:
-                    mult = 1;
+                    switch (b) {
+                        case Fire:
+                            mult = 1;
+                            break;
+                        case Water:
+                            mult = 2;
+                            break;
+                        case Electric:
+                            mult = 1;
+                            break;
+                        case Ground:
+                            mult = 0;
+                            break;
+                        case Ice:
+                            mult = 1.5;
+                            break;
+                        case Fire_Electric:
+                            mult = 1;
+                            break;
+                        case Water_Ice:
+                            mult = 2;
+                            break;
+                        case Water_Ground:
+                            mult = 2;
+                            break;
+                    }
                     break;
                 case Ground:
-                    mult = 0.5;
+                    switch (b) {
+                        case Fire:
+                            mult = 1.5;
+                            break;
+                        case Water:
+                            mult = 1;
+                            break;
+                        case Electric:
+                            mult = 2;
+                            break;
+                        case Ground:
+                            mult = 1;
+                            break;
+                        case Ice:
+                            mult = 0;
+                            break;
+                        case Fire_Electric:
+                            mult = 2;
+                            break;
+                        case Water_Ice:
+                            mult = 1;
+                            break;
+                        case Water_Ground:
+                            mult = 1;
+                            break;
+                    }
                     break;
                 case Ice:
-                    mult = 2;
+                    switch (b) {
+                        case Fire:
+                            mult = 0;
+                            break;
+                        case Water:
+                            mult = 1;
+                            break;
+                        case Electric:
+                            mult = 0.5;
+                            break;
+                        case Ground:
+                            mult = 2;
+                            break;
+                        case Ice:
+                            mult = 1;
+                            break;
+                        case Fire_Electric:
+                            mult = 0.5;
+                            break;
+                        case Water_Ice:
+                            mult = 1;
+                            break;
+                        case Water_Ground:
+                            mult = 2;
+                            break;
+                    }
                     break;
                 case Fire_Electric:
-                    mult = 1;
+                    switch (b) {
+                        case Fire:
+                            mult = 1;
+                            break;
+                        case Water:
+                            mult = 2;
+                            break;
+                        case Electric:
+                            mult = 1;
+                            break;
+                        case Ground:
+                            mult = 0.5;
+                            break;
+                        case Ice:
+                            mult = 2;
+                            break;
+                        case Fire_Electric:
+                            mult = 1;
+                            break;
+                        case Water_Ice:
+                            mult = 2;
+                            break;
+                        case Water_Ground:
+                            mult = 2;
+                            break;
+                    }
                     break;
                 case Water_Ice:
-                    mult = 2;
+                    switch (b) {
+                        case Fire:
+                            mult = 2;
+                            break;
+                        case Water:
+                            mult = 1;
+                            break;
+                        case Electric:
+                            mult = 0.5;
+                            break;
+                        case Ground:
+                            mult = 2;
+                            break;
+                        case Ice:
+                            mult = 1;
+                            break;
+                        case Fire_Electric:
+                            mult = 2;
+                            break;
+                        case Water_Ice:
+                            mult = 1;
+                            break;
+                        case Water_Ground:
+                            mult = 2;
+                            break;
+                    }
                     break;
                 case Water_Ground:
-                    mult = 0.5;
+                    switch (b) {
+                        case Fire:
+                            mult = 2;
+                            break;
+                        case Water:
+                            mult = 1;
+                            break;
+                        case Electric:
+                            mult = 2;
+                            break;
+                        case Ground:
+                            mult = 1;
+                            break;
+                        case Ice:
+                            mult = 1;
+                            break;
+                        case Fire_Electric:
+                            mult = 2;
+                            break;
+                        case Water_Ice:
+                            mult = 1;
+                            break;
+                        case Water_Ground:
+                            mult = 1;
+                            break;
+                    }
                     break;
-                }
-                break;
-            case Water:
-                switch (b) {
-                case Fire:
-                    mult = 2;
-                    break;
-                case Water:
-                    mult = 1;
-                    break;
-                case Electric:
-                    mult = 0;
-                    break;
-                case Ground:
-                    mult = 1;
-                    break;
-                case Ice:
-                    mult = 1;
-                    break;
-                case Fire_Electric:
-                    mult = 2;
-                    break;
-                case Water_Ice:
-                    mult = 1;
-                    break;
-                case Water_Ground:
-                    mult = 1;
-                    break;
-                }
-                break;
-            case Electric:
-                switch (b) {
-                case Fire:
-                    mult = 1;
-                    break;
-                case Water:
-                    mult = 2;
-                    break;
-                case Electric:
-                    mult = 1;
-                    break;
-                case Ground:
-                    mult = 0;
-                    break;
-                case Ice:
-                    mult = 1.5;
-                    break;
-                case Fire_Electric:
-                    mult = 1;
-                    break;
-                case Water_Ice:
-                    mult = 2;
-                    break;
-                case Water_Ground:
-                    mult = 2;
-                    break;
-                }
-                break;
-            case Ground:
-                switch (b) {
-                case Fire:
-                    mult = 1.5;
-                    break;
-                case Water:
-                    mult = 1;
-                    break;
-                case Electric:
-                    mult = 2;
-                    break;
-                case Ground:
-                    mult = 1;
-                    break;
-                case Ice:
-                    mult = 0;
-                    break;
-                case Fire_Electric:
-                    mult = 2;
-                    break;
-                case Water_Ice:
-                    mult = 1;
-                    break;
-                case Water_Ground:
-                    mult = 1;
-                    break;
-                }
-                break;
-            case Ice:
-                switch (b) {
-                case Fire:
-                    mult = 0;
-                    break;
-                case Water:
-                    mult = 1;
-                    break;
-                case Electric:
-                    mult = 0.5;
-                    break;
-                case Ground:
-                    mult = 2;
-                    break;
-                case Ice:
-                    mult = 1;
-                    break;
-                case Fire_Electric:
-                    mult = 0.5;
-                    break;
-                case Water_Ice:
-                    mult = 1;
-                    break;
-                case Water_Ground:
-                    mult = 2;
-                    break;
-                }
-                break;
-            case Fire_Electric:
-                switch (b) {
-                case Fire:
-                    mult = 1;
-                    break;
-                case Water:
-                    mult = 2;
-                    break;
-                case Electric:
-                    mult = 1;
-                    break;
-                case Ground:
-                    mult = 0.5;
-                    break;
-                case Ice:
-                    mult = 2;
-                    break;
-                case Fire_Electric:
-                    mult = 1;
-                    break;
-                case Water_Ice:
-                    mult = 2;
-                    break;
-                case Water_Ground:
-                    mult = 2;
-                    break;
-                }
-                break;
-            case Water_Ice:
-                switch (b) {
-                case Fire:
-                    mult = 2;
-                    break;
-                case Water:
-                    mult = 1;
-                    break;
-                case Electric:
-                    mult = 0.5;
-                    break;
-                case Ground:
-                    mult = 2;
-                    break;
-                case Ice:
-                    mult = 1;
-                    break;
-                case Fire_Electric:
-                    mult = 2;
-                    break;
-                case Water_Ice:
-                    mult = 1;
-                    break;
-                case Water_Ground:
-                    mult = 2;
-                    break;
-                }
-                break;
-            case Water_Ground:
-                switch (b) {
-                case Fire:
-                    mult = 2;
-                    break;
-                case Water:
-                    mult = 1;
-                    break;
-                case Electric:
-                    mult = 2;
-                    break;
-                case Ground:
-                    mult = 1;
-                    break;
-                case Ice:
-                    mult = 1;
-                    break;
-                case Fire_Electric:
-                    mult = 2;
-                    break;
-                case Water_Ice:
-                    mult = 1;
-                    break;
-                case Water_Ground:
-                    mult = 1;
-                    break;
-                }
-                break;
             }
         } catch (Exception e) {
             System.out.println("Element error");

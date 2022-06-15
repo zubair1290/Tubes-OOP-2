@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Main {
 
@@ -106,6 +107,7 @@ public class Main {
                 }
             } else if (command.equals("battle")) {
                 if (isCanBattle) {
+                    myEngimonWildThread.setCommand("sleep");
                     ArrayList<Coordinate> listAllCoordinatesEWildToBattle = new ArrayList<>();
                     ArrayList<EngimonWild> listAllEWildToBattle = new ArrayList<>();
                     String[] eWildPos = { "left", "right", "up", "down" };
@@ -122,9 +124,9 @@ public class Main {
                                 if (i < 2) {
                                     System.out.println("Engimon Wild is on the " + eWildPos[i]);
                                 } else if (i == 3) {
-                                    System.out.println("Engimon Wild is above");
-                                } else {
                                     System.out.println("Engimon Wild is below");
+                                } else {
+                                    System.out.println("Engimon Wild is above");
                                 }
                                 System.out.println("Engimon Wild details :");
                                 System.out.println("Name :" + eWild.getName());
@@ -133,19 +135,20 @@ public class Main {
                                 System.out.println("Element :" + eWild.getElement());
                                 System.out.println("SumTotalSkillPower :" + eWild.sumTotalSkillPower());
                                 System.out.println();
-                                System.out.println("Engimon Active details :");
-                                System.out.println("Name :" + plyr.getActiveEngimonPlayer().getName());
-                                System.out.println("Species :" + plyr.getActiveEngimonPlayer().getSpecies());
-                                System.out.println("Level :" + plyr.getActiveEngimonPlayer().getLevel());
-                                System.out.println("Element :" + plyr.getActiveEngimonPlayer().getElement());
-                                System.out.println(
-                                        "SumTotalSkillPower :" + plyr.getActiveEngimonPlayer().sumTotalSkillPower());
                                 break;
                             }
                         }
                     }
+                    System.out.println("Engimon Active details :");
+                    System.out.println("Name :" + plyr.getActiveEngimonPlayer().getName());
+                    System.out.println("Species :" + plyr.getActiveEngimonPlayer().getSpecies());
+                    System.out.println("Level :" + plyr.getActiveEngimonPlayer().getLevel());
+                    System.out.println("Element :" + plyr.getActiveEngimonPlayer().getElement());
+                    System.out.println(
+                            "SumTotalSkillPower :" + plyr.getActiveEngimonPlayer().sumTotalSkillPower());
+                    System.out.println();
 
-                    myEngimonWildThread.setCommand("sleep");
+                    System.out.println("Choose enemies: left, right, up, or down");
                     System.out.print("=> ");
                     command = sc.next();
 
@@ -207,7 +210,7 @@ public class Main {
                                 }
                             }
                         }
-                        System.out.println(eWildBoolPos[i]);
+                        // System.out.println(eWildBoolPos[i]);
                     }
                     myEngimonWildThread.interrupt();
                     sc.nextLine();
@@ -231,8 +234,12 @@ public class Main {
                     System.out.println();
                 }
                 System.out.print("Learn Skill Number: ");
-                int idx = sc.nextInt();
-                learn(skills.get(idx), plyr);
+                try {
+                    int idx = sc.nextInt();
+                    learn(skills.get(idx), plyr);
+                } catch (InputMismatchException e) {
+                    System.out.println("Type number");
+                }
                 sc.nextLine();
             } else if (command.equals("breed")) {
                 System.out.println("Select Engimon that you want to breed.");
@@ -259,36 +266,31 @@ public class Main {
                 plyr.showInventorySkill();
                 sc.nextLine();
             } else if (command.equals("switch active engimon")) {
-                int idx = sc.nextInt();
-                plyr.viewAllEngimon();
-                plyr.changeEngimonActive(idx);
-                System.out.println("Engimon Active Switched");
-                System.out.println("Name: " + plyr.getActiveEngimonPlayer().getName());
-                System.out.println("Coordinate: " + "(" + plyr.getActiveEngimonPlayer().getX() + ","
-                        + plyr.getActiveEngimonPlayer().getY() + ")");
-                System.out.println("Species: " + plyr.getActiveEngimonPlayer().getSpecies());
-                System.out.print("Element: ");
-                System.out.println(plyr.getActiveEngimonPlayer().getElement());
-                System.out.println("Life: " + plyr.getActiveEngimonPlayer().getLife());
-                System.out.println("Level: " + plyr.getActiveEngimonPlayer().getLevel());
-                System.out.println("Active: " + plyr.getActiveEngimonPlayer().getActive());
-                System.out.print("Skill: ");
-                int c = 0;
-                for (Skill skill : plyr.getInventorySkill().get()) {
-                    System.out.println("No. " + c++);
-                    System.out.println("Skill: " + skill.getSkill());
-                    System.out.println("Base Power: " + skill.getPower());
-                    System.out.print("Element Required: ");
-                    for (int i = 0; i < skill.getElements().size() - 1; i++) {
-                        System.out.print(skill.getElements().get(i));
-                        System.out.print(", ");
-                    }
-                    System.out.println(skill.getElements().get(skill.getElements().size() - 1));
-                    System.out.println("Mastery Level: " + skill.getMasteryLevel());
+                try {
+                    int idx = sc.nextInt();
+                    plyr.viewAllEngimon();
+                    plyr.changeEngimonActive(idx);
+                    System.out.println("Engimon Active Switched");
+                    System.out.println("Name: " + plyr.getActiveEngimonPlayer().getName());
+                    System.out.println("Coordinate: " + "(" + plyr.getActiveEngimonPlayer().getX() + ","
+                            + plyr.getActiveEngimonPlayer().getY() + ")");
+                    System.out.println("Species: " + plyr.getActiveEngimonPlayer().getSpecies());
+                    System.out.print("Element: ");
+                    System.out.println(plyr.getActiveEngimonPlayer().getElement());
+                    System.out.println("Life: " + plyr.getActiveEngimonPlayer().getLife());
+                    System.out.println("Level: " + plyr.getActiveEngimonPlayer().getLevel());
+                    System.out.println("Active: " + plyr.getActiveEngimonPlayer().getActive());
+                    System.out.print("Skill: ");
+                    if (plyr.getActiveEngimonPlayer().getSkills().size() > 0)
+                        plyr.getActiveEngimonPlayer().showSkills();
+                    else
+                        System.out.println("Skill empty");
+                } catch (InputMismatchException e) {
+                    System.out.println("Type number");
+                } finally {
+                    sc.nextLine();
                     System.out.println();
                 }
-                System.out.println();
-                sc.nextLine();
             }
 
             if (!isProcessingCommand && !waitAnotherCommand && !command.equals("q")) {
