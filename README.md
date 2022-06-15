@@ -17,7 +17,7 @@
 
 - Play
 
-![Alt text](screenshot/lay.png?raw=true "Play")
+![Alt text](screenshot/play.png?raw=true "Play")
 
 - Player Move
 
